@@ -13,8 +13,9 @@ var generateMeta = function(req) {
   var session =  {};
   if (req.user) {
     session.name = req.user.name;
-    session.priv = req.user.priv;
-    session.verified = req.user.verified;
+    //session.priv = req.user.priv;
+    session.user_role = req.user.user_role;
+    //session.verified = req.user.verified;
   }
   return session;
 };
