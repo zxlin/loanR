@@ -146,7 +146,54 @@ ret.openLoans = function() {
   // add all to return array
 };
 // get contracted loans
+ret.contractedLoans = function() {
+  var socket = this;
+  var user = socket.user;
+  var Loan = mongoose.model('Loan');
+  Loan.find({
+    $and: [{
+      state : 'Contracted'
+    }, {
+      $or: [{
+        lender : user
+      }, {
+        borrower : user
+      }]
+    }]
+  }).or().exec(function(err, loans) {
+    if (err) {
+      console.error(err);
+    }
+    socket.emit('contractedLoans', loans);
+  });
+  // query all loans where user is the lender or borrower
+  // add all to return array
+};
+
 // get closed loans
+ret.closedLoans = function() {
+  var socket = this;
+  var user = socket.user;
+  var Loan = mongoose.model('Loan');
+  Loan.find({
+    $and: [{
+      state : 'Closed'
+    }, {
+      $or: [{
+        lender : user
+      }, {
+        borrower : user
+      }]
+    }]
+  }).or().exec(function(err, loans) {
+    if (err) {
+      console.error(err);
+    }
+    socket.emit('closedLoans', loans);
+  });
+  // query all loans where user is the lender or borrower
+  // add all to return array
+};
 
 // Get all transactions
 ret.loadTransactions = function(data) {
