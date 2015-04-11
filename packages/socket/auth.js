@@ -4,6 +4,14 @@ var config = require('meanio').loadConfig();
 var ret = { };
 var app;
 
+/* Create a post
+ * Data hash:
+ * amount Number, 
+ * interest Number, 
+ * mountly_bill number,
+ * desired_rating Number,
+ * user_role Enum
+ */
 ret.createPost = function(data) {
   var socket = this;
   var user = socket.user;
@@ -28,6 +36,9 @@ ret.createPost = function(data) {
   });
 };
 
+/* select a Loan
+ * Data: postId
+ */
 ret.takeLoan = function(data) {
   var socket = this;
   var user = socket.user;
