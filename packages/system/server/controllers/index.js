@@ -39,13 +39,17 @@ exports.lender = function(req, res) {
     title : 'loanR'
   };
 
-  res.writeHead(200, {
-    'Content-Type' : CHARTYPE
-  });
-
   var meta = generateMeta(req);
-
-  res.end(getPageHTML('lender', meta));
+  
+  if (req.user) {
+    res.writeHead(200, {
+      'Content-Type' : CHARTYPE
+    });
+    res.end(getPageHTML('lender', meta));
+  } else {
+    res.redirect('/');
+  }
+ 
 };
 
 exports.borrower = function(req, res) {
@@ -53,13 +57,16 @@ exports.borrower = function(req, res) {
     title : 'loanR'
   };
 
-  res.writeHead(200, {
-    'Content-Type' : CHARTYPE
-  });
-
   var meta = generateMeta(req);
-
-  res.end(getPageHTML('borrower', meta));
+  
+  if (req.user) {
+    res.writeHead(200, {
+      'Content-Type' : CHARTYPE
+    });
+    res.end(getPageHTML('borrower', meta));
+  } else {
+    res.redirect('/');
+  }
 };
 
 
