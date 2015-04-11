@@ -48,6 +48,10 @@ var UserSchema = new Schema({
     required: true,
     get: escapeProperty
   },
+  accnumber: {
+    type: String,
+    required: true,
+  },
   email: {
     type: String,
     required: true,
@@ -62,6 +66,15 @@ var UserSchema = new Schema({
     required: true,
     get: escapeProperty
   },
+  customer_role: {
+    /* Borrower = true */
+    type: Boolean,
+    required: true,
+  },
+  rating: {
+    type: Number,
+    requred: true,
+  },
   roles: {
     type: Array,
     default: ['authenticated']
@@ -74,6 +87,7 @@ var UserSchema = new Schema({
     type: String,
     default: 'local'
   },
+  /* Lender Specific Feilds */
   salt: String,
   resetPasswordToken: String,
   resetPasswordExpires: Date,

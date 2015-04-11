@@ -3,8 +3,61 @@ extends layout
 block scripts
   link(rel="stylesheet", href="/static/css/index.css")
   script(src="/static/js/index.js")
-  title loanR app
+  title LoanR app
 
 block content
-  h1 test
 
+  //
+    div.ui.inverted.fixed.menu.navbar.page.grid#navbar
+      a.brand.item LoanR App
+      a.active.item Home
+  div#content
+    h1.ui.header.center.aligned.icon
+      i.circular.money.icon
+      span Welcome to LoanR
+    div.column.center.aligned#login
+      div.ui.form.segment
+        div.field
+          label Email Address
+          div.ui.left.icon.input
+            input#login-email(type="text", placeholder="Email Address")
+            i.mail.icon
+        div.field
+          label Password
+          div.ui.left.icon.input
+            input#login-password(type="text", placeholder="Password")
+            i.lock.icon
+        div.ui.blue.submit.button#login-btn Login
+        div.ui.green.button#login-register-btn Register
+          
+    
+    div.ui.modal.transition#registration-modal
+      div.header
+        i.add.user.icon 
+        span User Credentials
+      div.content
+        div.ui.form
+          div.two.fields
+            div.field
+              label First Name
+              input#registration-first-name(type="text", placeholder="Your last name")
+            div.field 
+              label Last Name
+              input#registration-last-name(type="text", placeholder="Your first name")
+          div.field
+            label Email Address
+            input#registration-email(type="text", placeholder="example@example.com")
+          div.field
+            label Password
+            input#registration-password(type="text", placeholder="Enter a password")
+          div.field
+            label Confirm Password
+            input#registration-confirm-password(type="text", placeholder="Confirm your password")
+          div.field
+            label Will you be...
+            div.ui.stackable.very.relaxed.center.aligned.page.grid#main-btns
+              div.ui.buttons
+                div.ui.button#main-lender-btn Lender
+                div.or
+                div.ui.button#main-borrower-btn Borrower
+          
