@@ -26,7 +26,7 @@ var LoanSchema = new Schema({
     required: true
   },
   missed_last_payment: {
-    type: boolean,
+    type: Boolean,
     required: true 
   },
   estimated_time_left: {
