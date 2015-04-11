@@ -1,7 +1,29 @@
 var is_lender = false;
 var is_borrower = false;
 
+var login = function() {
+  $.post('/login', {
+    email : $('#login-email').val(),
+    password : $('#login-password').val()
+  }).done(function(data) {
+    window.location = data.redirect;
+  }).fail(function(data) {
+    alert('Username and passwords do not match.');
+  });
+};
+
+socket.on('createAccount', function(stat) {
+  if (stat === true) {
+    $('#login-email').val($('#registration-email').val());
+    $('#login-password').val($('#registration-password').val());
+    login();
+  } else {
+    alert('Account creation failed');
+  }
+});
+
 $(document).ready(function(){
+  //Buttons
   $('#login-register-btn').on('click', function(){
     $('#registration-modal')
       .modal('show')
@@ -25,27 +47,34 @@ $(document).ready(function(){
     var email = $('#registration-email').val();
     var pass1 = $('#registration-password').val();
     var pass2 = $('#registration-confirm-password').val();
-
+  
     if (pass1 !== pass2) {
       alert('Passwords do not match');
+    } else if (is_lender === is_borrower) {
+      alert('Select an account type');
     } else {
-      socket.emit('createAccount', {
+      socket.emit('createAccount',{
         name : name,
         accnumber : account,
         email : email,
-        user_role : is_lender ? 'Lender' : 'Borrower',
+        user_role : (is_lender) ? 'Lender' : 'Borrower',
         password : pass1
       });
     }
   });
-  $('#login-btn').on('click', function() {
-    $.post('/login', {
-      email : $('#login-email').val(),
-      password : $('#login-password').val()
-    }).done(function(data) {
-      window.location = data.redirect;
-    }).fail(function(data) {
-      alert('Username and passwords do not match.');
-    });
+
+  $('#login-btn').on('click', login);
+
+  //Key Press
+  $('#login-email').on('keyup', function(e) {
+    if (e.keyCode === 13 ) {
+      login();
+    }
+  });
+
+  $('#login-password').on('keyup', function(e) {
+    if (e.keyCode === 13) {
+      login();
+    }
   });
 });

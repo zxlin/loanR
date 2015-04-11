@@ -50,7 +50,7 @@ var LoanSchema = new Schema({
     type: Number,
     required: true
   },
-  states: {
+  state: {
     type: String,
     enum: states,
     required: true

@@ -129,13 +129,23 @@ ret.loadPosts = function(data) {
     socket.emit('loadPosts', posts);
   });
 };
-/*i
+
 // get open loans
 ret.openLoans = function() {
   var socket = this;
   var user = socket.user;
   var Loan = mongoose.model('Loan');
-  Loan.find({something here later}).exec(function(err, loans) {
+  Loan.find({
+    $and: [{
+      state : 'Open'
+    }, {
+      $or: [{
+        lender : user
+      }, {
+        borrower : user
+      }]
+    }]
+  }).or().exec(function(err, loans) {
     if (err) {
       console.error(err);
     }
@@ -146,8 +156,6 @@ ret.openLoans = function() {
 };
 // get contracted loans
 // get closed loans
-TODO
-*/
 
 /* Create a transaction 
  * Data hash:
