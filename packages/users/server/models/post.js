@@ -1,4 +1,12 @@
-var UserSchema = new Schema({
+'use strict';
+
+var mongoose  = require('mongoose'),
+    Schema    = mongoose.Schema,
+    crypto    = require('crypto'),
+          _   = require('lodash');
+
+
+var PostSchema = new Schema({
   poster: {},
   amount: {
     type: Number,

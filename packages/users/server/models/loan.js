@@ -1,6 +1,12 @@
 'use strict';
 
-var UserSchema = new Schema({
+var mongoose  = require('mongoose'),
+    Schema    = mongoose.Schema,
+    crypto    = require('crypto'),
+          _   = require('lodash');
+
+
+var LoanSchema = new Schema({
   lender: {},
   borrower: {},
   monthly_fee: {
