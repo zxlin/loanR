@@ -1,14 +1,21 @@
 #content {
   padding-top: 50px;
 }
+
 #main-btns {
   padding-top: 15px;
 }
+
 #login {
   width: 25%;
   margin-left: auto;
   margin-right: auto;
 }
+
 #login-register-btn {
   float: right;
+}
+
+#login-btn {
+  float: left;
 }
