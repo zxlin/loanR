@@ -120,11 +120,7 @@ ret.loadPosts = function(data) {
     socket.emit('loadPosts', posts);
   });
 };
-<<<<<<< HEAD
 
-=======
-/*i
->>>>>>> 8ded52e9bab5d9c00cb0670c4be795aefc98ffc4
 // get open loans
 ret.openLoans = function() {
   var socket = this;
