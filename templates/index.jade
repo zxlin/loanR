@@ -37,17 +37,17 @@ block content
         span User Credentials
       div.content
         div.ui.form
-          div.two.fields
-            div.field
-              label First Name
-              div.ui.left.icon.input
-                input#registration-first-name(type="text", placeholder="Your last name")
-                i.user.icon
-            div.field 
-              label Last Name
-              div.ui.left.icon.input
-                input#registration-last-name(type="text", placeholder="Your first name")
-                i.user.icon
+          
+          div.field
+            label First Name
+            div.ui.left.icon.input
+              input#registration-first-name(type="text", placeholder="Your name")
+              i.user.icon
+          div.field 
+            label Bank Account Number
+            div.ui.left.icon.input
+              input#registration-account(type="text", placeholder="Your bank account number")
+              i.university.icon
           div.field
             label Email Address
             div.ui.left.icon.input
@@ -56,18 +56,19 @@ block content
           div.field
             label Password
             div.ui.left.icon.input
-              input#registration-password(type="text", placeholder="Enter a password")
+              input#registration-password(type="password", placeholder="Enter a password")
               i.lock.icon
           div.field
             label Confirm Password
             div.ui.left.icon.input
-              input#registration-confirm-password(type="text", placeholder="Confirm your password")
+              input#registration-confirm-password(type="password", placeholder="Confirm your password")
               i.lock.icon
-          div.field
-            label Will you be a...
-            div.ui.buttons
-              div.ui.button#main-lender-btn Lender
-              div.or
-              div.ui.button#main-borrower-btn Borrower
-          div.field
-            div.ui.green.button.submit#registration-btn Register
+          div.two.fields
+            div.field
+              label Will you be a...
+              div.ui.buttons
+                div.ui.button#main-lender-btn Lender
+                div.or
+                div.ui.button#main-borrower-btn Borrower
+            div.field
+              div.ui.green.button.submit#registration-btn Register

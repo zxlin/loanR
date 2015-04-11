@@ -19,3 +19,8 @@
 #login-btn {
   float: left;
 }
+
+#registration-btn {
+  float: right;
+  margin-top: 23px;
+}
