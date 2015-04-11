@@ -12,3 +12,10 @@
 #customer {
   float: left;
 }
+
+#balance-content {
+  float: right;
+}
+#balance-balance {
+  margin-top: -10px;
+}

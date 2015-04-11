@@ -24,10 +24,6 @@ var TransactionSchema = new Schema({
   amount: {
     type: Number,
     required: true,
-  },
-  failed: {
-    type: Boolean,
-    required: true,
   }
 });
 
