@@ -120,13 +120,48 @@ ret.loadPosts = function(data) {
     socket.emit('loadPosts', posts);
   });
 };
+/*i
+// get open loans
+ret.openLoans = function() {
+  var socket = this;
+  var user = socket.user;
+  var Loan = mongoose.model('Loan');
+  Loan.find({something here later}).exec(function(err, loans) {
+    if (err) {
+      console.error(err);
+    }
+    socket.emit('openLoans', loans);
+  });
+  // query all loans where user is the lender or borrower
+  // add all to return array
+};
+// get contracted loans
+// get closed loans
+TODO
+*/
 
+// Get all transactions
 ret.loadTransactions = function(data) {
   var socket = this;
 
   var Transaction = mongoose.model('Transaction');
   Transaction.find({}).exec(function(err, transactions) {
     socket.emit('loadTransactions', transactions);
+  });
+};
+
+// Get a specific user's transactions
+ret.userTransactions = function(data) {
+  var socket = this;
+  var user = socket.user;
+
+  var Transaction = mongoose.model('Transaction');
+  Transaction.find({
+    $or : [
+      {sender : user._id}, 
+      {receiver : user._id}
+  ]}).exec(function(err, transactions) {
+    socket.emit('userTransactions', transactions);
   });
 };
 
