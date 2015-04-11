@@ -1,0 +1,14 @@
+#content {
+  padding-top: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 60%; 
+}
+
+#balance {
+  float: right;
+}
+
+#customer {
+  float: left;
+}
