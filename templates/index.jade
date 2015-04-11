@@ -3,12 +3,14 @@ extends layout
 block scripts
   link(rel="stylesheet", href="/static/css/index.css")
   script(src="/static/js/index.js")
-  title loanR app
+  title LoanR app
 
 block content
-  div.ui.inverted.fixed.menu.navbar.page.grid#navbar
-    a.brand.item LoanR App
-    a.active.item Home
+
+  //
+    div.ui.inverted.fixed.menu.navbar.page.grid#navbar
+      a.brand.item LoanR App
+      a.active.item Home
   div#content
     h1.ui.header.center.aligned.icon
       i.circular.money.icon
