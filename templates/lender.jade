@@ -2,7 +2,7 @@ extends layout
 
 block scripts
   link(rel="stylesheet", href="/static/css/lender.css")
-  script(src="/static/js/index.js")
+  script(src="/static/js/lender.js")
   title Lender Page
 
 block content
@@ -19,21 +19,22 @@ block content
           h1.ui.header Alice
             div.sub.header Valued Customer
         div.eight.wide.column#balance
-          p.ui.red.header Loaning: $500
-          p.ui.green.header Balance: $1000
+          div#balance-content
+            p.ui.red.header Loaning: $500
+            p.ui.green.header Balance: $1000
     h4.ui.horizontal.header.divider
       
-      span Loans
+      span Lender Account
     div.ui.grid
       div.four.wide.column#side
         div.ui.vertical.menu#sidemenu
-          a.active.teal.item Create Loan
-          a.item Open Loans
-          a.item Contracted Loans
-          a.item Closed Loans
+          a.active.teal.item#sidemenu-create(data-target="content-create") Create Loan
+          a.item#sidemenu-open(data-target="content-open") Open Loans
+          a.item#sidemenu-contracted(data-target="content-contracted") Contracted Loans
+          a.item#sidemenu-closed(data-target="content-closed") Closed Loans
         div.ui.vertical.menu#sidemenu2
-          a.item View All Loan Wishes
-          a.item Search Loan Wishes
+          a.item#sidemenu-all(data-target="content-all") View All Loan Wishes
+          a.item#sidemenu-search(data-target="content-search") Search Loan Wishes
       div.twelve.wide.column#content-box
         div.ui.segment#content-create
           div.ui.form#create-loan
@@ -79,8 +80,8 @@ block content
                   i.world.icon
                   span Interest Rate
                 th
-                  i.payment.icon
-                  span Pay
+                  i.remove.bookmark.icon
+                  span Action
             tbody#open-body
               
         div.ui.segment#content-contracted
@@ -132,6 +133,10 @@ block content
                   span Details
             tbody#closed-body
         div.ui.segment#content-all
+          h1.ui.dividing
+            i.search.icon
+            span All Loan Wishes
+          div.ui.fitted.divider
           div.ui.card
             div.content
               div.header $1000 Loan Wish

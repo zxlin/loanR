@@ -121,6 +121,15 @@ ret.loadPosts = function(data) {
   });
 };
 
+ret.loadTransactions = function(data) {
+  var socket = this;
+
+  var Transaction = mongoose.model('Transaction');
+  Transaction.find({}).exec(function(err, transactions)) {
+    socket.emit('loadTransactions', transactions);
+  });
+};
+
 module.exports = function(a) {
   app = a;
   return ret;
