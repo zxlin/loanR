@@ -120,7 +120,7 @@ ret.loadPosts = function(data) {
     socket.emit('loadPosts', posts);
   });
 };
-/*
+/*i
 // get open loans
 ret.openLoans = function() {
   var socket = this;
@@ -140,6 +140,7 @@ ret.openLoans = function() {
 TODO
 */
 
+// Get all transactions
 ret.loadTransactions = function(data) {
   var socket = this;
 
@@ -149,7 +150,8 @@ ret.loadTransactions = function(data) {
   });
 };
 
-/*ret.userTransactions = function(data) {
+// Get a specific user's transactions
+ret.userTransactions = function(data) {
   var socket = this;
   var user = socket.user;
 
@@ -162,7 +164,7 @@ ret.loadTransactions = function(data) {
     socket.emit('userTransactions', transactions);
   });
 };
-*/
+
 module.exports = function(a) {
   app = a;
   return ret;
