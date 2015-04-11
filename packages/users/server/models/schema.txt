@@ -1,0 +1,40 @@
+delete this once it's useless
+
+User:
+
+old stuff (names, passwords, etc...)
+int account_number
+int rating
+boolean role (borrower or lender)
+
+Post:
+
+User poster
+int amount
+int interest_rate
+int monthly_fee
+int estimated_time_til_completion
+boolean role
+
+Transaction:
+
+Date time
+User sender
+User receiver
+int amount
+boolean was_successful
+
+Loan:
+
+User lender
+User borrow
+const int monthly_fee
+int amount_left_total
+int monthly_fee_left_to_pay_this_month
+int pay_day
+int penalty_fee
+boolean missed_last_payment
+Transaction[] history
+boolean autopay
+int estimated_time_left
+
