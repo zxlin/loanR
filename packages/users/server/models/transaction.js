@@ -2,21 +2,22 @@
 
 var mongoose  = require('mongoose'),
     Schema    = mongoose.Schema,
+    ObjectId  = Schema.ObjectId,
     crypto    = require('crypto'),
           _   = require('lodash');
 
 var TransactionSchema = new Schema({
   date_time: {
-    type: String,
+    type: Date,
     required: true,
   },
   sender: {
-    type: Schema.Types.ObjectId, 
+    type: ObjectId, 
     ref: 'User',
     required: true,
   },
   receiver: {
-    type: Schema.Types.ObjectId,
+    type: ObjectId,
     ref: 'User',
     required: true,
   },

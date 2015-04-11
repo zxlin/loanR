@@ -8,6 +8,14 @@ var mongoose  = require('mongoose'),
     crypto    = require('crypto'),
           _   = require('lodash');
 
+var user_role = {
+  values : [
+    'Lender',
+    'Borrower'
+  ],
+  message : 'enum validator failed for path `{PATH}` with value `{VALUE}`'
+};
+
 /**
  * Validations
  */
@@ -66,9 +74,10 @@ var UserSchema = new Schema({
     required: true,
     get: escapeProperty
   },
-  customer_role: {
+  user_role: {
     /* Borrower = true */
-    type: Boolean,
+    type : String,
+    enum : user_role,
     required: true,
   },
   rating: {

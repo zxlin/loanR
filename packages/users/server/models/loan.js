@@ -2,18 +2,26 @@
 
 var mongoose  = require('mongoose'),
     Schema    = mongoose.Schema,
+    ObjectId  = Schema.ObjectId,
     crypto    = require('crypto'),
           _   = require('lodash');
 
-
 var LoanSchema = new Schema({
-  lender: {},
-  borrower: {},
+  lender: {
+    type : ObjectId,
+    ref : 'User',
+    required : true
+  },
+  borrower: {
+    type : ObjectId,
+    ref : 'User',
+    required : true
+  },
   monthly_fee: {
     type: Number,
     required: true
   },
-  amount_left_total: {
+  amount_left: {
     type: Number,
     required: true
   },
