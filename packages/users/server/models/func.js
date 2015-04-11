@@ -7,3 +7,7 @@ var expected_time = function(amount, interest, monthly) {
   return Infinity;
 };
 
+
+//console.log(expected_time(1000000, 2.00, 1))
+
+
