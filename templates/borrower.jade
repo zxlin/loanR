@@ -16,12 +16,19 @@ block content
     div.ui.segment
       div.ui.grid
         div.eight.wide.column#customer
-          h1.ui.header Bob
-            div.sub.header Credit Score: 750
+          h1.ui.header 
+            span#customer-name Bob
+            div.sub.header 
+              span Credit Score: 
+              span#customer-credit-score 750
         div.eight.wide.column#balance
           div#balance-content
-            p.ui.red.header Loaned: $100
-            p.ui.green.header Balance: $200
+            div.ui.red.header#balance-loaned
+              span Loaned: 
+              span#customer-loaned $100
+            div.ui.green.header#balance-balance
+              span Balance: 
+              span#customer-balance $200
     h4.ui.horizontal.header.divider
       
       span Borrower Account
@@ -29,12 +36,12 @@ block content
       div.four.wide.column#side
         div.ui.vertical.menu#sidemenu
           a.active.teal.item#sidemenu-create(data-target="content-create") Create Loan Wish
-          a.item#sidemenu-open(data-target="content-open") Open Loans
-          a.item#sidemenu-contracted(data-target="content-contracted") Contracted Loans
-          a.item#sidemenu-closed(data-target="content-closed") Closed Loans
+          a.green.item#sidemenu-open(data-target="content-open") Open Loans
+          a.blue.item#sidemenu-contracted(data-target="content-contracted") Contracted Loans
+          a.red.item#sidemenu-closed(data-target="content-closed") Closed Loans
         div.ui.vertical.menu#sidemenu2
-          a.item#sidemenu-all(data-target="content-all") View All Loan Offers
-          a.item#sidemenu-search(data-target="content-search") Search Loan Offers
+          a.yellow.item#sidemenu-all(data-target="content-all") View All Loan Offers
+          a.orange.item#sidemenu-search(data-target="content-search") Search Loan Offers
       div.twelve.wide.column#content-box
         div.ui.segment#content-create
           div.ui.form#create-loan

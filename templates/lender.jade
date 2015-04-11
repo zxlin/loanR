@@ -16,12 +16,17 @@ block content
     div.ui.segment
       div.ui.grid
         div.eight.wide.column#customer
-          h1.ui.header Alice
-            div.sub.header Valued Customer
+          h1.ui.header 
+            span#customer-name Alice
+            div.sub.header#customer-sub Valued Customer
         div.eight.wide.column#balance
           div#balance-content
-            p.ui.red.header Loaning: $500
-            p.ui.green.header Balance: $1000
+            div.ui.red.header#balance-loaning
+              span Loaning: 
+              span#customer-loaning $500
+            div.ui.green.header#balance-balance
+              span Balance: 
+              span#customer-balance $1000
     h4.ui.horizontal.header.divider
       
       span Lender Account
@@ -29,12 +34,12 @@ block content
       div.four.wide.column#side
         div.ui.vertical.menu#sidemenu
           a.active.teal.item#sidemenu-create(data-target="content-create") Create Loan
-          a.item#sidemenu-open(data-target="content-open") Open Loans
-          a.item#sidemenu-contracted(data-target="content-contracted") Contracted Loans
-          a.item#sidemenu-closed(data-target="content-closed") Closed Loans
+          a.green.item#sidemenu-open(data-target="content-open") Open Loans
+          a.blue.item#sidemenu-contracted(data-target="content-contracted") Contracted Loans
+          a.red.item#sidemenu-closed(data-target="content-closed") Closed Loans
         div.ui.vertical.menu#sidemenu2
-          a.item#sidemenu-all(data-target="content-all") View All Loan Wishes
-          a.item#sidemenu-search(data-target="content-search") Search Loan Wishes
+          a.yellow.item#sidemenu-all(data-target="content-all") View All Loan Wishes
+          a.orange.item#sidemenu-search(data-target="content-search") Search Loan Wishes
       div.twelve.wide.column#content-box
         div.ui.segment#content-create
           div.ui.form#create-loan
