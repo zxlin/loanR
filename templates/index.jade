@@ -40,19 +40,29 @@ block content
           div.two.fields
             div.field
               label First Name
-              input#registration-first-name(type="text", placeholder="Your last name")
+              div.ui.left.icon.input
+                input#registration-first-name(type="text", placeholder="Your last name")
+                i.user.icon
             div.field 
               label Last Name
-              input#registration-last-name(type="text", placeholder="Your first name")
+              div.ui.left.icon.input
+                input#registration-last-name(type="text", placeholder="Your first name")
+                i.user.icon
           div.field
             label Email Address
-            input#registration-email(type="text", placeholder="example@example.com")
+            div.ui.left.icon.input
+              input#registration-email(type="text", placeholder="example@example.com")
+              i.mail.icon
           div.field
             label Password
-            input#registration-password(type="text", placeholder="Enter a password")
+            div.ui.left.icon.input
+              input#registration-password(type="text", placeholder="Enter a password")
+              i.lock.icon
           div.field
             label Confirm Password
-            input#registration-confirm-password(type="text", placeholder="Confirm your password")
+            div.ui.left.icon.input
+              input#registration-confirm-password(type="text", placeholder="Confirm your password")
+              i.lock.icon
           div.field
             label Will you be a...
             div.ui.buttons
