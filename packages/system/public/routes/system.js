@@ -1,6 +1,7 @@
 'use strict';
 
 // $viewPathProvider, to allow overriding system default views
+/*
 angular.module('mean.system').provider('$viewPath', function() {
   function ViewPathProvider() {
     var overrides = {};
@@ -71,3 +72,4 @@ angular.module('mean.system').config(['$meanStateProvider', '$urlRouterProvider'
     $locationProvider.hashPrefix('!');
   }
 ]);
+*/
