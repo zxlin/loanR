@@ -2,7 +2,7 @@ extends layout
 
 block scripts
   link(rel="stylesheet", href="/static/css/lender.css")
-  script(src="/static/js/index.js")
+  script(src="/static/js/lender.js")
   title Lender Page
 
 block content
@@ -19,11 +19,12 @@ block content
           h1.ui.header Alice
             div.sub.header Valued Customer
         div.eight.wide.column#balance
-          p.ui.red.header Loaning: $500
-          p.ui.green.header Balance: $1000
+          div#balance-content
+            p.ui.red.header Loaning: $500
+            p.ui.green.header Balance: $1000
     h4.ui.horizontal.header.divider
       
-      span Loans
+      span Lender Account
     div.ui.grid
       div.four.wide.column#side
         div.ui.vertical.menu#sidemenu
@@ -79,8 +80,8 @@ block content
                   i.world.icon
                   span Interest Rate
                 th
-                  i.payment.icon
-                  span Pay
+                  i.remove.bookmark.icon
+                  span Action
             tbody#open-body
               
         div.ui.segment#content-contracted
@@ -132,6 +133,10 @@ block content
                   span Details
             tbody#closed-body
         div.ui.segment#content-all
+          h1.ui.dividing
+            i.search.icon
+            span All Loan Wishes
+          div.ui.fitted.divider
           div.ui.card
             div.content
               div.header $1000 Loan Wish
