@@ -58,7 +58,7 @@ ret.takeLoan = function(data) {
         borrower = post.poster;
       }
 
-      var loan = new Load({
+      var loan = new Loan({
         lender : lender,
         borrower : borrower,
         monthly_fee : post.monthly_fee,
