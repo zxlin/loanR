@@ -4,7 +4,8 @@
  * Defining the Package
  */
 var Module = require('meanio').Module,
-  favicon = require('serve-favicon');
+  favicon = require('serve-favicon'),
+  express = require('express');
 
 var SystemPackage = new Module('system');
 
@@ -31,13 +32,13 @@ SystemPackage.register(function(app, auth, database) {
   // Adding robots and humans txt
   app.useStatic(__dirname + '/public/assets/static');
 
-  SystemPackage.menus.add({
-    title: 'Log Out',
-    link: 'Log Out',
-    roles: ['authenticated'],
-    menu: 'account'
-  });
-  
+  // Adding jade templates
+  app.use('/static/jade/', express.static(__dirname + '/public/assets/jade'));
+  app.use('/static/js/', express.static(__dirname + '/public/assets/js'));
+  app.use('/static/css/', express.static(__dirname + '/public/assets/css'));
+  app.use('/static/fonts/', express.static(__dirname + '/public/assets/fonts'));
+  app.use('/static/images/', express.static(__dirname + '/public/assets/images'));
+  app.use('/static/img/', express.static(__dirname + '/public/assets/img'));
 
   return SystemPackage;
 
