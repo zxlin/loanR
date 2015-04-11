@@ -35,10 +35,10 @@ block content
         div.ui.vertical.menu#sidemenu
           a.active.teal.item#sidemenu-create(data-target="content-create") Create Loan
           a.green.item#sidemenu-open(data-target="content-open") Open Loans
-          a.blue.item#sidemenu-contracted(data-target="content-contracted") Contracted Loans
+          a.yellow.item#sidemenu-contracted(data-target="content-contracted") Contracted Loans
           a.red.item#sidemenu-closed(data-target="content-closed") Closed Loans
         div.ui.vertical.menu#sidemenu2
-          a.yellow.item#sidemenu-all(data-target="content-all") View All Loan Wishes
+          a.blue.item#sidemenu-all(data-target="content-all") View All Loan Wishes
           a.orange.item#sidemenu-search(data-target="content-search") Search Loan Wishes
       div.twelve.wide.column#content-box
         div.ui.segment#content-create
@@ -64,7 +64,7 @@ block content
                 i.money.icon
             div.field
               div.ui.green.button.submit#create-loan-btn Submit Offering
-        div.ui.segment#content-open
+        div.ui.form.segment#content-open(style="margin-top: 0px;")
           h1.ui.dividing
             i.dollar.icon
             span Open Loans
@@ -89,7 +89,7 @@ block content
                   span Action
             tbody#open-body
               
-        div.ui.segment#content-contracted
+        div.ui.segment#content-contracted(style="margin-top: 0px;")
           h1.ui.dividing
             i.book.icon
             span Contracted Loans
@@ -113,7 +113,7 @@ block content
                   i.bar.chart.icon
                   span Details
             tbody#contracted-body
-        div.ui.segment#content-closed
+        div.ui.segment#content-closed(style="margin-top: 0px;")
           h1.ui.dividing
             i.history.icon
             span Closed Loans
@@ -137,7 +137,7 @@ block content
                   i.bar.chart.icon
                   span Details
             tbody#closed-body
-        div.ui.segment#content-all
+        div.ui.segment#content-all(style="margin-top: 0px;")
           h1.ui.dividing
             i.search.icon
             span All Loan Wishes
@@ -149,7 +149,7 @@ block content
                   span Interest Rate 5%
                 p 12 month loan at $50 per month
                 div.ui.blue.button.submit Offer a Loan
-        div.ui.segment#content-search
+        div.ui.segment#content-search(style="margin-top: 0px;")
           div.ui.form
             h1.ui.dividing
               i.search.icon

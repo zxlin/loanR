@@ -6,6 +6,15 @@ var mongoose  = require('mongoose'),
     crypto    = require('crypto'),
           _   = require('lodash');
 
+var states = {
+  values : [
+    'Open',
+    'Contracted',
+    'Closed'
+  ],
+  message : 'enum validator failed for path `{PATH}` with value `{VALUE}`'
+};
+
 var LoanSchema = new Schema({
   lender: {
     type : ObjectId,
@@ -39,6 +48,11 @@ var LoanSchema = new Schema({
   },
   estimated_time_left: {
     type: Number,
+    required: true
+  },
+  state: {
+    type: String,
+    enum: states,
     required: true
   }
   // need to complete
