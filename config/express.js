@@ -8,13 +8,19 @@ var mean = require('meanio'),
   compression = require('compression'),
   morgan = require('morgan'),
   consolidate = require('consolidate'),
-  express = require('express'),
+  cookieParser = require('cookie-parser'),
+  expressValidator = require('express-validator'),
+  bodyParser = require('body-parser'),
+  methodOverride = require('method-override'),
+  session = require('express-session'),
+  mongoStore = require('connect-mongo')(session),
   helpers = require('view-helpers'),
   flash = require('connect-flash'),
+  express = require('express'),
+  async = require('async'),
   config = mean.loadConfig();
 
 module.exports = function(app, db) {
-
   app.set('showStackError', true);
 
   // Prettify HTML
@@ -31,22 +37,45 @@ module.exports = function(app, db) {
     level: 9
   }));
 
-  // Enable compression on bower_components
-  app.use('/bower_components', express.static(config.root + '/bower_components'));
-
-  // Adds logging based on logging config in config/env/ entry
-  require('./middlewares/logging')(app, config.logging);
-
   // assign the template engine to .html files
   app.engine('html', consolidate[config.templateEngine]);
 
   // set .html as the default extension
   app.set('view engine', 'html');
 
+  // The cookieParser should be above session
+  app.use(cookieParser());
+
+  /*
+  var my_store = new mongoStore({
+    db: db.connection.db,
+    collection: config.sessionCollection
+  });
+  */
+
+  // Express/Mongo session storage
+  /*
+  app.use(session({
+    secret: config.sessionSecret,
+    store: my_store,
+    cookie: config.sessionCookie,
+    name: config.sessionName,
+    resave: true,
+    saveUninitialized: true
+  }));
+  */
 
   // Dynamic helpers
   app.use(helpers(config.app.name));
 
+  // Use passport session
+  /*
+  app.use(passport.initialize());
+  app.use(passport.session());
+  */
+
   // Connect flash for flash messages
   app.use(flash());
+
+  //app.session_storage = my_store;
 };
