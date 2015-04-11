@@ -22,11 +22,11 @@ var UserSchema = new Schema({
   },
   amount: {
     type: Number,
-    required true,
+    required: true,
   },
   failed: {
     type: Boolean,
-    required true,
+    required: true,
   }
 });
 
