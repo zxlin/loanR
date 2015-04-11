@@ -15,7 +15,7 @@ ret.createPost = function(data) {
     amount : data.amount,
     interest : data.interest,
     monthly_bill : data.monthly_bill,
-    estimated_completion : 0,
+    estimated_completion : 0, //TODO Save
     desired_rating : data.desired_rating,
     lender : user.user_role
   });
@@ -66,7 +66,7 @@ ret.takeLoan = function(data) {
         monthly_fee_left_to_pay_this_month : post.monthly_fee,
         pay_day : (new Date()).getDay(),
         missed_last_payment : false,
-        estimated_time_left: 0
+        estimated_time_left: 0 //TODO use func
       });
       loan.save(function(err) {
         d(err, loan);
