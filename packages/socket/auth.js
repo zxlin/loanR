@@ -120,6 +120,25 @@ ret.loadPosts = function(data) {
     socket.emit('loadPosts', posts);
   });
 };
+/*
+// get open loans
+ret.openLoans = function() {
+  var socket = this;
+  var user = socket.user;
+  var Loan = mongoose.model('Loan');
+  Loan.find({something here later}).exec(function(err, loans) {
+    if (err) {
+      console.error(err);
+    }
+    socket.emit('openLoans', loans);
+  });
+  // query all loans where user is the lender or borrower
+  // add all to return array
+};
+// get contracted loans
+// get closed loans
+TODO
+*/
 
 module.exports = function(a) {
   app = a;
