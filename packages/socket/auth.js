@@ -87,6 +87,15 @@ ret.takeLoan = function(data) {
   });
 };
 
+/* Filter posts/ search posts
+ * Data hash:
+ * min_amount Number, 
+ * max_amount Number, 
+ * min_interest number,
+ * max_interest Number,
+ * min_monthly Number,
+ * max_mountly Number,
+ */
 ret.query = function(data) {
   var socket = this;
   
@@ -98,7 +107,7 @@ ret.query = function(data) {
     },
     interest : {
       $gte : data.min_interest,
-      $lte : data.max_amount
+      $lte : data.max_interest
     },
     monthly_bill : {
       $gte : data.min_monthly,
@@ -193,6 +202,33 @@ ret.closedLoans = function() {
   });
   // query all loans where user is the lender or borrower
   // add all to return array
+};
+
+/* Create a transaction 
+ * Data hash:
+ * date_time Date, 
+ * sender userid, 
+ * receiver userid, 
+ * amount Number
+ */
+ret.createTransaction = function(data) {
+  var socket = this;
+
+  var Transaction = mongoose.model('Transaction');
+
+  var transaction = new Transaction({
+    date_time : data.date_time,
+    sender : data.sender,
+    receiver : data.receiver,
+    amount : data.amount
+  });
+  transaction.save(function(err) {
+    if (err) {
+      socket.emit('createTransaction', false);
+    } else {
+      socket.emit('createTransaction', true);
+    }
+  });
 };
 
 // Get all transactions
