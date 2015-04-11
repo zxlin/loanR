@@ -125,11 +125,25 @@ ret.loadTransactions = function(data) {
   var socket = this;
 
   var Transaction = mongoose.model('Transaction');
-  Transaction.find({}).exec(function(err, transactions)) {
+  Transaction.find({}).exec(function(err, transactions) {
     socket.emit('loadTransactions', transactions);
   });
 };
 
+/*ret.userTransactions = function(data) {
+  var socket = this;
+  var user = socket.user;
+
+  var Transaction = mongoose.model('Transaction');
+  Transaction.find({
+    $or : [
+      {sender : user._id}, 
+      {receiver : user._id}
+  ]}).exec(function(err, transactions) {
+    socket.emit('userTransactions', transactions);
+  });
+};
+*/
 module.exports = function(a) {
   app = a;
   return ret;
