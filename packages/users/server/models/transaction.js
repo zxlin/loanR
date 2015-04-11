@@ -5,7 +5,7 @@ var mongoose  = require('mongoose'),
     crypto    = require('crypto'),
           _   = require('lodash');
 
-var UserSchema = new Schema({
+var TransactionSchema = new Schema({
   date_time: {
     type: String,
     required: true,
@@ -30,3 +30,4 @@ var UserSchema = new Schema({
   }
 });
 
+mongoose.model('Transaction', TransactionSchema);

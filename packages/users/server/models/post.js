@@ -29,3 +29,5 @@ var PostSchema = new Schema({
     required: true
   }
 });
+
+mongoose.model('Post', PostSchema);

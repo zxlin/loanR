@@ -36,4 +36,4 @@ var LoanSchema = new Schema({
   // need to complete
 });
 
-
+mongoose.model('Loan', LoanSchema);

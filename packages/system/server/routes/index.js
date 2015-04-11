@@ -8,6 +8,10 @@ module.exports = function(System, app, auth, database) {
   var index = require('../controllers/index');
   app.route('/')
     .get(index.index);
+  app.route('/lender')
+    .get(index.lender);
+  app.route('/borrower')
+    .get(index.borrower)
 
 /*
   app.get('/*',function(req,res,next){

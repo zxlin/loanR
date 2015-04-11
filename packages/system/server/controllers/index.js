@@ -33,6 +33,36 @@ exports.index = function(req, res) {
   res.end(getPageHTML('index', meta));
 };
 
+exports.lender = function(req, res) {
+  var content = {
+    title : 'loanR'
+  };
+
+  res.writeHead(200, {
+    'Content-Type' : CHARTYPE
+  });
+
+  var meta = generateMeta(req);
+
+  res.end(getPageHTML('lender', meta));
+};
+
+exports.borrower = function(req, res) {
+  var content = {
+    title : 'loanR'
+  };
+
+  res.writeHead(200, {
+    'Content-Type' : CHARTYPE
+  });
+
+  var meta = generateMeta(req);
+
+  res.end(getPageHTML('borrower', meta));
+};
+
+
+
 /*
 exports.render = function(req, res) {
 
