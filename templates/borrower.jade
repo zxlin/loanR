@@ -28,13 +28,13 @@ block content
     div.ui.grid
       div.four.wide.column#side
         div.ui.vertical.menu#sidemenu
-          a.active.teal.item#sidemenu-create Create Loan Wish
-          a.item#sidemenu-open Open Loans
-          a.item#sidemenu-contracted Contracted Loans
-          a.item#sidemenu-closed Closed Loans
+          a.active.teal.item#sidemenu-create(data-target="content-create") Create Loan Wish
+          a.item#sidemenu-open(data-target="content-open") Open Loans
+          a.item#sidemenu-contracted(data-target="content-contracted") Contracted Loans
+          a.item#sidemenu-closed(data-target="content-closed") Closed Loans
         div.ui.vertical.menu#sidemenu2
-          a.item#sidemenu-all View All Loan Offers
-          a.item#sidemenu-search Search Loan Offers
+          a.item#sidemenu-all(data-target="content-all") View All Loan Offers
+          a.item#sidemenu-search(data-target="content-search") Search Loan Offers
       div.twelve.wide.column#content-box
         div.ui.segment#content-create
           div.ui.form#create-loan
