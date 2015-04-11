@@ -26,7 +26,7 @@ Socket.register(function(app, auth, database, http) {
     key: config.sessionName,
     store: app.session_storage,
     fail: function(data, message, err, accept) {
-      accept(null, !err);
+      accept(null, true);
     }
   }));
 
