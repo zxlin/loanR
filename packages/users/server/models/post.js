@@ -44,7 +44,8 @@ var PostSchema = new Schema({
   },
   desired_rating: {
     type: Number,
-    required: true
+    required: false,
+    default : 0
   }
 });
 

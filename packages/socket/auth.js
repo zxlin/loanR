@@ -19,16 +19,17 @@ ret.createPost = function(data) {
   var Post = mongoose.model('Post');
   
   var post = new Post({
-    poster : user._id,
+    poster : data.user,
     amount : data.amount,
     interest : data.interest,
     monthly_bill : data.monthly_bill,
     estimated_completion : 0, //TODO Save
-    desired_rating : data.desired_rating,
-    lender : user.user_role
+    desired_rating : data.rating,
+    role : data.user_role
   });
   post.save(function(err) {
     if (err) {
+      console.log(err);
       socket.emit('createPost', false);
     } else {
       socket.emit('createPost', true);
@@ -136,7 +137,9 @@ ret.loadPosts = function(data) {
   var socket = this;
 
   var Post = mongoose.model('Post');
-  Post.find({}).exec(function(err, posts) {
+  Post.find({
+    role : data  
+  }).exec(function(err, posts) {
     socket.emit('loadPosts', posts);
   });
 };
