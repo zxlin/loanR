@@ -56,7 +56,10 @@ ret.deletePost = function(post) {
     if (err) {
       console.log(err);
     }
-    socket.emit('deletePost', err);
+    socket.emit('deletePost', {
+      id : post,
+      error : err 
+    });
   });
 };
 
@@ -117,7 +120,10 @@ ret.takeLoan = function(data) {
     if (err) {
       console.error(err);
     }
-    socket.emit('takeLoan', err);
+    socket.emit('takeLoan', {
+      id : postId,
+      error : err 
+    });
   });
 };
 
