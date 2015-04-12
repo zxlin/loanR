@@ -300,4 +300,13 @@ $(document).ready(function(){
       x++;
     }
   });
+
+  //Fill money owed
+  socket.on('sumLoans', function(sum) {
+    $('#dash-money-left').text('$' + sum);
+  });
+
+  //Emits
+  socket.emit('countOpenLoans', user);
+  socket.emit('sumLoans', user);
 });

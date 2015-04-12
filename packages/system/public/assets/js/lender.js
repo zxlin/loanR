@@ -250,4 +250,13 @@ $(document).ready(function(){
       x++;
     }
   });
+
+  //Fill money owned
+  socket.on('sumLoans', function(sum) {
+    $('#dash-money-lent').text('$' + sum);
+  });
+
+  //Emits
+  socket.emit('countOpenLoans', user);
+  socket.emit('sumLoans', user);
 });

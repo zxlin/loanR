@@ -190,6 +190,30 @@ ret.loadUserPosts = function(user) {
   });
 };
 
+ret.countOpenLoans = function(user) {
+  var socket = this;
+  
+  var Loan = mongoose.model('Loan');
+  Loan.count({
+    $and: [{
+      amount_left : {
+        $gt : 0
+      }
+    }, {
+      $or: [{
+        lender : user
+      }, {
+        borrower : user
+      }]
+    }]
+  }).exec(function(err, count) {
+    if (err) {
+      console.error(err);
+    }
+    socket.emit('countOpenLoans', count);
+  });
+};
+
 // get open loans
 ret.openLoans = function(user) {
   var socket = this;
@@ -215,6 +239,37 @@ ret.openLoans = function(user) {
   });
   // query all loans where user is the lender or borrower
   // add all to return array
+};
+
+ret.sumLoans = function(user) {
+  var socket = this;
+
+  var Loan = mongoose.model('Loan');
+  Loan.find({
+    $and: [{
+      amount_left : {
+        $gt : 0
+      }
+    }, {
+      $or: [{
+        lender : user
+      }, {
+        borrower : user
+      }]
+    }]
+  }).exec(function(err, loans) {
+    if (err) {
+      console.error(err);
+    } else {
+      var sum = 0;
+      var x = loans.length;
+      while (x--) {
+        var loan = loans[x];
+        sum += loan.amount_left;
+      }
+      socket.emit('sumLoans', sum);
+    }
+  });
 };
 
 ret.closedLoans = function(user) {

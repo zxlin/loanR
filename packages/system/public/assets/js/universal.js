@@ -57,3 +57,7 @@ socket.on('closedLoans', function(data) {
     x++;
   }
 });
+
+socket.on('countOpenLoans', function(count) {
+  $('#dash-loans').text(count);
+});

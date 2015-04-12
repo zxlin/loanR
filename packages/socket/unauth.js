@@ -13,7 +13,8 @@ ret.createAccount = function(data) {
 
   var firstName = data.name.split(' ')[0];
   var lastName = data.name.split(' ')[1];
-  
+  var balance = 0;
+
   async.waterfall([
     function(d) {
       http.get('http://api.reimaginebanking.com/customers/?key=ENT0a1ef41ece34435feeffd062b38dd917', function(res) {
@@ -24,15 +25,19 @@ ret.createAccount = function(data) {
         res.on('end', function() {
           var data = JSON.parse(str);
           var x = 0 ;
+          var found = false
           while (x < data.length) {
             var entry = data[x];
             if (firstName === entry.first_name && lastName === entry.last_name) {
+              found = true;
               d(null, entry._id);
               break;
             }
             x++;
           }
-          d('Account does not exist');
+          if (!found) {
+            d('Account does not exist');
+          }
         });
       });
     },
@@ -45,20 +50,40 @@ ret.createAccount = function(data) {
         res.on('end', function() {
           var data = JSON.parse(str);
           var x = data.length;
-          var balance = 0;
           while (x--) {
             balance += data[x].balance;
           }
-          d(null, balance);
+          d(null, (Math.log(balance) / Math.LN10) * 150, cap_id);
+        });
+      });
+    },
+    function(score, cap_id, d) {
+      http.get('http://api.reimaginebanking.com/customers/' + cap_id + '/bills/?key=ENT0a1ef41ece34435feeffd062b38dd917', function(res) {
+        var str = '';
+        res.on('data', function(chunk) {
+          str += chunk;
+        });
+        res.on('end', function() {
+          var data = JSON.parse(str);
+          var x = data.length;
+          var debt = 0;
+          while (x--) {
+            debt += data[x].payment_amount;
+          }
+          d(null, score - Math.max(0, (Math.log(debt) / Math.LN10) * 100));
         });
       });
     }
-  ], function(err, balance) {
+  ], function(err, rating) {
     if (err) {
+      console.log(err);
       data.balance = 1000;
+      data.rating = 728;
     } else {
       data.balance = balance;
+      data.rating = Math.ceil(Math.min(1000, Math.max(0, rating)));
     }
+  
     var user = new User(data);
     user.save(function(err) {
       if (err) {
@@ -74,7 +99,7 @@ ret.createAccount = function(data) {
 
   /*
 
-  data.rating = 0; //TODO, create function for this
+
 
 
   */
