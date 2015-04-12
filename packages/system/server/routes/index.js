@@ -12,6 +12,8 @@ module.exports = function(System, app, auth, database) {
     .get(index.lender);
   app.route('/borrower')
     .get(index.borrower)
+  app.route('/dashboard')
+    .get(index.dashboard)
 
 /*
   app.get('/*',function(req,res,next){

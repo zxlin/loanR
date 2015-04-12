@@ -125,17 +125,18 @@ ret.query = function(data) {
   var Post = mongoose.model('Post');
   Post.find({
     amount : {
-      $gte : data.min_amount,
-      $lte : data.max_amount
+      $gte : data.amount * .8,
+      $lte : data.amount * 1.2
     },
     interest : {
-      $gte : data.min_interest,
-      $lte : data.max_interest
+      $gte : data.interest - .02,
+      $lte : data.interest + .02
     },
     monthly_bill : {
-      $gte : data.min_monthly,
-      $lte : data.max_monthly
-    }
+      $gte : data.monthly * .8,
+      $lte : data.monthly * 1.2
+    },
+    role : data.role
   }).limit(20).exec(function(err, posts) {
     if (err) {
       console.error(err);
