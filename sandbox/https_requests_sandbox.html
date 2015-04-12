@@ -34,27 +34,20 @@
 </html>
 
 <script>
-	var a;
-	var fname;
-	var lname;
 	var id;
 
 	find_person = function(){
-
-
 		//Finds users based off of name put in the box and gets their ID
 		$.get( "http://api.reimaginebanking.com/customers/?key=ENT0a1ef41ece34435feeffd062b38dd917", function( data ) {
 		  var x = 0;
 		  while (x < data.length) {
 		  	var entry = data[x];
-		  	//alert(document.getElementById("fn").value)
 		  	if ((document.getElementById("fn").value === data[x].first_name) && (document.getElementById("ln").value === data[x].last_name)){
 		  		id = data[x]._id;
 		  		break;
 		  	} else {
-		  		//alert("ERROR: USER NOT FOUND!")
+		  		console.log("ERROR: USER NOT FOUND!")
 		  	}
-		  	//console.log(entry);
 			x++;
 		  }
 		  alert( "Load was performed." );
@@ -133,19 +126,12 @@
 		alert(id + " has score of: " + score);
 	}
 
-	//ID of account the transction is for
-	make_payment = function(transaction_id, payment_amount, payer_id, payee_id, account_into_id){
-		
-		//var $form = $( this ),
-	    //term = document.getElementById("amt").value,
-	    //url = $form.attr( "action" );
-	    
+	//ID of account the transction is for. Payer pays the payee. 
+	make_payment = function(transaction_id, payment_amount, payer_id, payee_id, account_into_id){		
 	    url = "http://api.reimaginebanking.com/accounts/" + "5516c07ba520e0066c9ac6ec" + "/transactions/?key=CUST0a1ef41ece34435feeffd062b38dd917";
-
 		var dataObj = JSON.stringify({"transaction_type": "cash",  "payee_id": "5516c07ba520e0066c9aca3d",  "amount": payment_amount});
 		console.log(dataObj);
-			$.ajax({	
-				
+			$.ajax({					
 			  	type: "POST",
 			  	url:  "http://api.reimaginebanking.com/accounts/" + "5516c07ba520e0066c9ac6ec" + "/transactions/?key=CUST0a1ef41ece34435feeffd062b38dd917",
 			  	data:  dataObj,
@@ -164,75 +150,7 @@
 			    }
 		});
 
-		/*	var url_acct = "http://api.reimaginebanking.com/customers/" + "5516c07ba520e0066c9aca3d" + "/bills/?key=ENT0a1ef41ece34435feeffd062b38dd917";
-
-
-			$.post( url_acct, { payee_id: "546cd56d04783a02616859c9", amount: "20" })
-			  .done(function( data ) {
-			    alert( "Data Loaded: " + data );
-			 }); */
-
 	}
-/*
-	10 1000 - 10,000
-	20 10,000 - 100,000
-	30 100,000 - 1,000,000
-	40 10,000,000 - 1,000,000,000
-	50 1,000,000,000 <  
-
-	-10 1000 - 10,000
-	-20 10,000 - 100,000
-	-30 100,000 - 1,000,000
-	-40 10,000,000 - 1,000,000,000
-	-50 1,000,000,000 <
-
-	(50 * loans repayed) - (50 * payments missed ) + ()
-	//Credit score depends on number of succesful loans repayed, number of payments missed, amount of money in the bank, amount borrowed 
-	//Insert User info -> Find User -> Find accounts -> Go through each accont 
-
-
-
-
-			/*
-		 $.ajax({
-		  'type' : 'GET',
-		  'url': 'http://api.reimaginebanking.com/customers?key=ENT0a1ef41ece34435feeffd062b38dd917',
-		  'data': JSON.stringify({ _id: _id, first_name: first_name, last_name: last_name}), 
-		  'contentType': "application/json;charset=UTF-8",
-		  'success' : function(data) {
-			alert("cool")
-			alert(JSON.parse(data))
-		  }, 'error' : function (data){
-			alert("lols")
-		  }
-		});   */
-
-	   // Send the data using post
-	   /*
-		  console.log("1")
-		  var response = $.post( url, {transaction_type: "cash",  payee_id: "5516c07ba520e0066c9aca3d",  amount: 10});
-		  console.log(response)
-		  console.log(url)
-		   /*/
-	  
-	  /*
-		  $.ajax({
-		    url : "http://api.reimaginebanking.com/accounts/" + "5516c07ba520e0066c9ac6ec" + "/transactions/?key=CUST0a1ef41ece34435feeffd062b38dd917",
-		    type: "POST",
-		    data : {"transaction_type": "cash",  "payee_id": "5516c07ba520e0066c9aca3d",  "amount": 10},
-		    contentType : "application/json;charset=UTF-8",
-		    dataType: 'jsonp',
-		    crossDomain: true,
-		    success: function(data, textStatus, jqXHR)
-		    {
-		        //data - response from server
-		        console.log("yes")
-		    },
-		    error: function (jqXHR, textStatus, errorThrown)
-		    {
-		 		console.log(errorThrown)
-		    }
-		}); */
 	
 </script>
 
