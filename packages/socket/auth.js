@@ -27,8 +27,8 @@ ret.createPost = function(data) {
   var socket = this;
 
   var Post = mongoose.model('Post');
- 
-  var post = new Post({
+
+  Post.create({
     poster : data.user,
     amount : data.amount,
     interest : data.interest,
@@ -36,8 +36,7 @@ ret.createPost = function(data) {
     estimated_completion : expected_time(data.amount, data.interest, data.monthly_bill), 
     desired_rating : data.rating,
     role : data.user_role
-  });
-  post.save(function(err) {
+  }, socket, function(err) {
     if (err) {
       console.log(err);
     }
@@ -56,7 +55,10 @@ ret.deletePost = function(post) {
     if (err) {
       console.log(err);
     }
-    socket.emit('deletePost', err);
+    socket.emit('deletePost', {
+      id : post,
+      error : err 
+    });
   });
 };
 
@@ -109,15 +111,16 @@ ret.takeLoan = function(data) {
       });
     },
     function(loan, d) {
-      Post.remove({
-        _id : postId
-      }).exec(d);
+      Post.del(postId, socket, d);
     }
   ], function(err, result) {
     if (err) {
       console.error(err);
     }
-    socket.emit('takeLoan', err);
+    socket.emit('takeLoan', {
+      id : postId,
+      error : err 
+    });
   });
 };
 

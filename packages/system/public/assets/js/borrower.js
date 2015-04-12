@@ -1,5 +1,9 @@
 var populatePost = function(target, post) {
+  if (post.role === user_role) {
+    return;
+  }
   $(target).append($('<div>')
+    .attr('id', post._id)
     .addClass('ui card offer-card')
     .css({
       'margin-right' : '20px',
@@ -32,7 +36,6 @@ var populatePost = function(target, post) {
               role : user_role,
               postId : post.data('id')
             });
-//            $(this).parent().parent().parent()
           })
         )
       )
@@ -42,6 +45,7 @@ var populatePost = function(target, post) {
 
 var populatePostTable = function(target, post) {
   $(target).append($('<tr>')
+    .attr('id', post._id)
     .append($('<td>')
       .text(post.amount)
     )
@@ -66,7 +70,7 @@ var populatePostTable = function(target, post) {
         })
         .on('click', function() {
           socket.emit('deletePost', $(this).data('id'));
-          $(this).parent().parent().remove();
+//          $(this).parent().parent().remove();
         })
       )
     )
@@ -75,6 +79,7 @@ var populatePostTable = function(target, post) {
 
 var populateLoanTable = function(target, loan) {
   $(target).append($('<tr>')
+    .attr('id', loan._id)
     .append($('<td>')
       .text(loan.original_amount)
     )
@@ -161,12 +166,14 @@ $(document).ready(function(){
 
   //Notify when post is deleted
   socket.on('deletePost', function(data) {
-    notify('You successfully delisted a loan wish', 'Sorry, there was an error when attemping to delist your loan wish', data);
+    $('#' + data.id).remove();
+    notify('You successfully delisted a loan wish', 'Sorry, there was an error when attemping to delist your loan wish', data.error);
   });
 
   //Notify when loan is taken
   socket.on('takeLoan', function(data) {
-    notify('You have successfully taken a loan!', 'Sorry, there was an error when attemping to take the loan', data);
+    $('#' + data.id).remove();
+    notify('You have successfully taken a loan!', 'Sorry, there was an error when attemping to take the loan', data.error);
   });
 
   //Populate active loans
