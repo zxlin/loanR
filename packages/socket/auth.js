@@ -281,12 +281,7 @@ ret.userTransactions = function(data) {
   });
 };
 
-module.exports = function(a) {
-  app = a;
-  return ret;
-};
-
-find_person = function(first_name, last_name){
+var find_person = function(first_name, last_name){
   var cap_id;  
 
   //Finds users based off of name put in the box and gets their ID
@@ -308,9 +303,9 @@ find_person = function(first_name, last_name){
     alert( "Load was performed." );
     find_acct(cap_id)   
   });  
-}
+};
 
-find_acct = function(cap_id){
+var find_acct = function(cap_id){
   //Finds accounts and balances
   var balance;
   var url_acct = "http://api.reimaginebanking.com/customers/" + cap_id + "/accounts/?key=ENT0a1ef41ece34435feeffd062b38dd917";
@@ -337,10 +332,10 @@ find_acct = function(cap_id){
       find_bills(50, cap_id)
     }
   });    
-}
+};
 
 //Finds bills and debts
-find_bills = function(score, cap_id){
+var find_bills = function(score, cap_id){
   var debt;
   var url_acct = "http://api.reimaginebanking.com/customers/" + cap_id + "/bills/?key=ENT0a1ef41ece34435feeffd062b38dd917";
   $.get(url_acct, function( data ) {
@@ -370,14 +365,14 @@ find_bills = function(score, cap_id){
       find_history(score-50, cap_id)
     }
   }); 
-}
+};
 
-find_history = function(score, cap_id){
+var find_history = function(score, cap_id){
   alert(cap_id + " has score of: " + score);
-}
+};
 
 /*Payer account ID ("5516c07ba520e0066c9ac6ec") will pay money into Payee acount ID("5516c07ba520e0066c9aca3d")*/
-make_payment = function(transaction_id, payment_amount, payer_id, payee_id, account_into_id){   
+var make_payment = function(transaction_id, payment_amount, payer_id, payee_id, account_into_id){   
     url = "http://api.reimaginebanking.com/accounts/" + payer_id.toString() + "/transactions/?key=CUST0a1ef41ece34435feeffd062b38dd917";
     var dataObj = JSON.stringify({"transaction_type": "cash",  "payee_id": payee_id.toString(),  "amount": payment_amount});
     console.log(dataObj);
@@ -400,6 +395,11 @@ make_payment = function(transaction_id, payment_amount, payer_id, payee_id, acco
           }
     });
 
-  }
+};
+
+module.exports = function(a) {
+  app = a;
+  return ret;
+};
 
 
