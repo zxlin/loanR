@@ -16,6 +16,10 @@ block content
     h4.ui.header.white.icon
       i.circular.home.icon(style="display: inline-block;")
       h1(style="display: inline-block;") LoanR Dashboard
+    h4.ui.header(style="display:inline-block; float: right; margin-right: 80px; margin-top: 15px;")
+      div.content(style="display: inline-block;")
+        div.sub.header#customer-welcome Welcome to LoarnR
+        h1.header#customer-name(style="margin-top: -0px;") #{name}
 
   div#content
     div.ui.four.column.grid
@@ -42,19 +46,19 @@ block content
               div.content
                 h1.ui.header 
                   div.content 
-                    span#dash-months-left 3 
-                  i.calendar.icon(style="display: inline; float: right;")
-                h2.header Months Left to Pay
+                    span#dash-months-left $200
+                  i.money.icon(style="display: inline; float: right;")
+                h2.header Owed to Lenders
           div.column
             div.ui.purple.fluid.card
               div.content
                 h1.ui.header
                   div.content
-                    span#dash-owe $500
-                  i.money.icon(style="display: inline; float: right;")
-                h2.header Owed to Lenders
-        h4.ui.horizontal.right.floated.divider(style="margin-top: 20px; margin-bottom: 0px;") Borrower Account
-      
+                    span#dash-credit 673
+                  i.bar.chart.icon(style="display: inline; float: right;")
+                h2.header Credit Score
+
+        h4.ui.horizontal.right.floated.divider(style="margin-top: 20px; margin-bottom: 0px;") Borrower Account 
     div.ui.four.column.grid
       div.column#side
         div.ui.vertical.menu#sidemenu

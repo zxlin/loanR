@@ -15,7 +15,11 @@ block content
   div.ui.menu.navbar.page.grid#dash-header
     h4.ui.header.white.icon
       i.circular.home.icon(style="display: inline-block;")
-      h1(style="display: inline-block;") LoanR Dashboard
+      h1.header(style="display: inline-block;") LoanR Dashboard
+    h4.ui.header(style="display: inline-block; float: right; margin-right: 80px; margin-top: 15px;")
+      div.content(style="display: inline-block;") 
+        div.sub.header#customer-welcome Welcome to LoanR 
+        h1.header#customer-name(style="margin-top: -0px;") #{name}
 
   div#content
     div.ui.four.column.grid
@@ -42,17 +46,17 @@ block content
               div.content
                 h1.ui.header 
                   div.content 
-                    span#dash-months-left 3 
-                  i.calendar.icon(style="display: inline; float: right;")
-                h2.header Months to Collect
+                    span#dash-months-left $500
+                  i.money.icon(style="display: inline; float: right;")
+                h2.header Being Loaned Out
           div.column
             div.ui.purple.fluid.card
               div.content
                 h1.ui.header
                   div.content
-                    span#dash-owe $500
-                  i.money.icon(style="display: inline; float: right;")
-                h2.header Being Loaned Out
+                    span#dash-credit 728
+                  i.bar.chart.icon(style="display: inline; float: right;")
+                h2.header Credit Score
 
         h4.ui.horizontal.right.floated.divider(style="margin-top: 20px; margin-bottom: 0px;") Lender Account 
     div.ui.four.column.grid
