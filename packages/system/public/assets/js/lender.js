@@ -97,6 +97,18 @@ var populateLoanTable = function(target, loan) {
   );
 };
 
+var populateCompleteLoan = function(target, loan) {
+  $(target).append($('<tr>')
+    .attr('id', loan._id)
+    .append($('<td>')
+      .text('$' + loan.original_amount)
+    )
+    .append($('<td>')
+      .text((loan.interest * 100) + '%')
+    )
+  );
+};
+
 $(document).ready(function(){
   $('#content-box').children().hide();
   $('#content-create').show();
