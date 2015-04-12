@@ -169,7 +169,7 @@ $(document).ready(function(){
   //Notify when post is deleted
   socket.on('deletePost', function(data) {
     $('#' + data.id).remove();
-    notify('You successfully delisted a loan offer', 'Sorry, there was an error when attemping to delist your loan offer', data);
+    notify('You successfully delisted a loan offer', 'Sorry, there was an error when attemping to delist your loan offer', data.error);
   });
 
   //Notify when loan is taken
