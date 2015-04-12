@@ -6,18 +6,21 @@ var login = function() {
     email : $('#login-email').val(),
     password : $('#login-password').val()
   }).done(function(data) {
-    $('#content').transition({
-      animation: 'fly down', 
-      duration: '1000ms',
-      onComplete: function() {
-        $('body').transition({
-          animation: 'fade',
-          onComplete: function() {
-            window.location = data.redirect;
-          }
-        });
-      }
-    });
+    $('#registration-modal').modal('hide');
+    setTimeout(function() {
+      $('#content').transition({
+        animation: 'fly down', 
+        duration: '1000ms',
+        onComplete: function() {
+          $('body').transition({
+            animation: 'fade',
+            onComplete: function() {
+              window.location = data.redirect;
+            }
+          });
+        }
+      });
+    }, 250);
   }).fail(function(data) {
     $('#content').transition({
       animation: 'shake',
