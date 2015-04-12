@@ -29,7 +29,7 @@ var TransactionSchema = new Schema({
 });
 
 TransactionSchema.statics = {
-  create : function(params, loan, cb) {
+  create : function(params, loan, socket, cb) {
     var Transaction = mongoose.model('Transaction');
     var User = mongoose.model('User');
     var Loan = mongoose.model('Loan');
@@ -54,23 +54,39 @@ TransactionSchema.statics = {
           },
           //Remove money from sender
           function(d) {
-            User.update(
+            User.findOneAndUpdate(
               { _id : transaction.sender },
               { $inc : {
                 balance : (transaction.amount * -1)
               } }
-            ).exec(function(err) {
+            ).exec(function(err, user) {
+              socket.emit('updateBalance', {
+                user : user._id,
+                balance : user.balance
+              });
+              socket.broadcast.emit('updateBalance', {
+                user : user._id,
+                balance : user.balance
+              });
               d(err);
             });
           },
           //Add money to receiver
           function(d) {
-            User.update(
+            User.findOneAndUpdate(
               { _id : transaction.receiver },
               { $inc : {
                 balance : transaction.amount
               } }
-            ).exec(function(err) {
+            ).exec(function(err, user) {
+              socket.emit('updateBalance', {
+                user : user._id,
+                balance : user.balance
+              });
+              socket.broadcast.emit('updateBalance', {
+                user : user._id,
+                balance : user.balance
+              });
               d(err);
             });
           }

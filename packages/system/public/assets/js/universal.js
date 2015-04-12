@@ -38,3 +38,22 @@ socket.on('addPost', function(data) {
   populatePost($('#content-all'), data.post);
   notify('A new listing has been added', '', null);
 });
+
+//Update money
+socket.on('updateBalance', function(data) {
+  if (data.user === user) {
+    $('#dash-balance').text('$' + data.balance);
+  }
+});
+
+//
+socket.on('closedLoans', function(data) {
+  var length = data.length;
+  var x = 0;
+  var target = $('#closed-body').empty();
+  while (x < length) {
+    var item = data[x];
+    populateCompleteLoan(target, item);
+    x++;
+  }
+});

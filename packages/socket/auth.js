@@ -116,7 +116,7 @@ ret.takeLoan = function(data) {
         sender : loan.lender,
         receiver : loan.borrower,
         amount : loan.amount_left
-      }, loan._id, function(err) {
+      }, loan._id, socket, function(err) {
         d(err);
       });
     },
@@ -217,6 +217,32 @@ ret.openLoans = function(user) {
   // add all to return array
 };
 
+ret.closedLoans = function(user) {
+  var socket = this;
+  
+  var Loan = mongoose.model('Loan');
+  Loan.find({
+    $and: [{
+      amount_left : {
+        $lte : 0
+      }
+    }, {
+      $or: [{
+        lender : user
+      }, {
+        borrower : user
+      }]
+    }]
+  }).exec(function(err, loans) {
+    if (err) {
+      console.error(err);
+    }
+    socket.emit('closedLoans', loans);
+  });
+  // query all loans where user is the lender or borrower
+  // add all to return array
+};
+
 /*
 ret.getLoanById = function(id) {
   var socket = this;
@@ -270,7 +296,7 @@ ret.makePayment = function(data) {
         sender : loan.borrower,
         receiver : loan.lender,
         amount : amount
-      }, loan._id, function(err) {
+      }, loan._id, socket, function(err) {
         d(err, loan);
       });
     }

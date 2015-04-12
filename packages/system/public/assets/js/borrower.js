@@ -131,6 +131,18 @@ var populateLoanTable = function(target, loan) {
   );
 };
 
+var populateCompleteLoan = function(target, loan) {
+  $(target).append($('<tr>')
+    .attr('id', loan._id)
+    .append($('<td>')
+      .text('$' + loan.original_amount)
+    )
+    .append($('<td>')
+      .text(loan.interest)
+    )
+  );
+};
+
 
 $(document).ready(function(){
   $('#content-box').children().hide();
@@ -186,6 +198,10 @@ $(document).ready(function(){
       monthly : parseInt($('#search-wish-monthly').val()),
       role : (user_role === 'Lender') ? 'Borrower' : 'Lender'
     });
+  });
+
+  $('#sidemenu-closed').on('click', function() {
+    socket.emit('closedLoans', user);
   });
 
   //Hide search results 
