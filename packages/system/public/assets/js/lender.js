@@ -188,8 +188,13 @@ $(document).ready(function(){
 
   //Notify when loan is taken
   socket.on('takeLoan', function(data) {
-    $('#' + data.id).remove();
-    notify('You have successfully given a loan!', 'Sorry, there was an error when attemping to give the loan', data.error);
+    $('#' + data.id).transition({
+      animation: 'scale',
+      duration: '500ms',
+      onComplete: function() {
+        notify('You have successfully given a loan!', 'Sorry, there was an error when attemping to give the loan', data.error);
+      }
+    });
   });
 
   //Populate active loans

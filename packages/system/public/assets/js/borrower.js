@@ -31,6 +31,7 @@ var populatePost = function(target, post) {
           .text('Take Loan')
           .on('click', function() {
             var post = $(this);
+          //  $(this).parent().parent().transition('scale'); 
             socket.emit('takeLoan', {
               user : user,
               role : user_role,
@@ -241,8 +242,13 @@ $(document).ready(function(){
 
   //Notify when loan is taken
   socket.on('takeLoan', function(data) {
-    $('#' + data.id).remove();
-    notify('You have successfully taken a loan!', 'Sorry, there was an error when attemping to take the loan', data.error);
+    $('#' + data.id).transition({
+      animation: 'scale',
+      duration: '500ms',
+      onComplete: function() {
+        notify('You have successfully taken a loan!', 'Sorry, there was an error when attemping to take the loan', data.error);
+      }
+    });
   });
 
   //Populate active loans
