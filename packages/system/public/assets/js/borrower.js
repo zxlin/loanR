@@ -41,7 +41,8 @@ $(document).ready(function(){
       var elem = $('<div>')
         .addClass('ui card offer-card')
         .css({
-          'margin-right' : '20px'
+          'margin-right' : '20px',
+          'width' : 'calc(50% - 20px)'
         })
         .append($('<div>')
           .addClass('content')
