@@ -281,7 +281,7 @@ ret.userTransactions = function(data) {
   });
 };
 
-var find_person = function(first_name, last_name){
+var find_person = function(first_name, last_name, cb){
   var cap_id;  
 
   //Finds users based off of name put in the box and gets their ID
@@ -300,12 +300,12 @@ var find_person = function(first_name, last_name){
         //console.log(entry);
       x++;
       }
-    alert( "Load was performed." );
-    find_acct(cap_id)   
+    //alert( "Load was performed." );
+    cb(null, cap_id);  
   });  
 };
 
-var find_acct = function(cap_id){
+var find_acct = function(cap_id, cb){
   //Finds accounts and balances
   var balance;
   var url_acct = "http://api.reimaginebanking.com/customers/" + cap_id + "/accounts/?key=ENT0a1ef41ece34435feeffd062b38dd917";
@@ -319,23 +319,23 @@ var find_acct = function(cap_id){
       break;
     }
     if (entry.balance <= 1000){
-      find_bills(0, cap_id)
+      cb(null, 0, cap_id)
     } else if ((entry.balance <= 10000) && (entry.balance > 1000)) {
-      find_bills(10, cap_id)
+      cb(null, 10, cap_id)
     } else if ((entry.balance <= 100000) && (entry.balance > 10000)) {
-      find_bills(20, cap_id)
+      cb(null, 20, cap_id)
     } else if ((entry.balance <= 1000000) && (entry.balance > 100000)) {
-      find_bills(30, cap_id)
+      cb(null, 30, cap_id)
     } else if ((entry.balance <= 10000000) && (entry.balance > 1000000)) {
-      find_bills(40, cap_id)
+      cb(null, 40, cap_id)
     } else  {
-      find_bills(50, cap_id)
+      cb(null, 50, cap_id)
     }
   });    
 };
 
 //Finds bills and debts
-var find_bills = function(score, cap_id){
+var find_bills = function(score, cap_id, cb){
   var debt;
   var url_acct = "http://api.reimaginebanking.com/customers/" + cap_id + "/bills/?key=ENT0a1ef41ece34435feeffd062b38dd917";
   $.get(url_acct, function( data ) {
@@ -352,23 +352,24 @@ var find_bills = function(score, cap_id){
     }
 
     if (debt <= 1000){
-      find_history(score-0, cap_id)
+      cb(null, score-0, cap_id)
     } else if ((debt <= 10000) && (debt > 1000)) {
-      find_history(score-10, cap_id)
+      cb(null, score-10, cap_id)
     } else if ((debt <= 100000) && (debt > 10000)) {
-      find_history(score-20, cap_id)
+      cb(null, score-20, cap_id)
     } else if ((debt <= 1000000) && (debt > 100000)) {
-      find_history(score-30, cap_id)
+      cb(null, score-30, cap_id)
     } else if ((debt <= 10000000) && (debt > 1000000)) {
-      find_history(score-40, cap_id)
+      cb(null, score-40, cap_id)
     } else  {
-      find_history(score-50, cap_id)
+      cb(null, score-50, cap_id)
     }
   }); 
 };
 
-var find_history = function(score, cap_id){
-  alert(cap_id + " has score of: " + score);
+var find_history = function(score, cap_id, cb){
+  //alert(cap_id + " has score of: " + score);
+  cb(null, score);
 };
 
 /*Payer account ID ("5516c07ba520e0066c9ac6ec") will pay money into Payee acount ID("5516c07ba520e0066c9aca3d")*/
@@ -397,9 +398,43 @@ var make_payment = function(transaction_id, payment_amount, payer_id, payee_id, 
 
 };
 
+ret.creditScore = function() {
+  var socket = this;
+  var user = socket.user;
+
+  var name = user.name;
+  var names = name.split(' '); // split first and last name
+  var first = '';
+  var last = '';
+  if (names.length > 0) {
+    first = names[0];
+  }
+  if (names.length > 1) {
+    last = names[1];
+  }
+  
+/*
+find_person(first,last,cb)
+find_acct(cap_id, cb)
+find_bills(score, cap_id)
+find_history(score, cap_id)
+*/
+  async.waterfall([
+    find_person(first, last, cb),
+    find_acct(cap_id, cb),
+    find_bills(score, cap_id, cb),
+    find_history(score, cap_id)
+  ], function(err, result){
+    if (err) {
+      console.log(err);
+    } else {
+      socket.emit('creditScore', result);
+    } 
+  });
+};
+
 module.exports = function(a) {
   app = a;
   return ret;
 };
-
 
