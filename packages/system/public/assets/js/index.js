@@ -23,7 +23,7 @@ var login = function() {
       animation: 'shake',
       duration: '500ms',
       onStart: function() {
-        $('#credential-warning').show();
+        $('#credential-warning').fadeIn(500);
       }
     }); 
   });

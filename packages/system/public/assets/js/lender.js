@@ -110,6 +110,8 @@ var populateCompleteLoan = function(target, loan) {
 };
 
 $(document).ready(function(){
+  $('body').css('display', 'none');
+  $('body').fadeIn(1000);
   $('#content-box').children().hide();
   $('#content-create').show();
 
@@ -117,8 +119,8 @@ $(document).ready(function(){
   $('#side').children().children().on('click', function(){
     $('#side').children().children().removeClass('active');
     $(this).addClass('active');
-    $('#content-box').children().hide();
-    $('#'+$(this).data('target')).show();
+    $('#content-box').children().hide()
+    $('#'+$(this).data('target')).fadeIn(500);
   });
 
   //Create a new loan wish
