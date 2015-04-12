@@ -70,7 +70,22 @@ exports.borrower = function(req, res) {
   }
 };
 
+exports.dashboard = function(req, res) {
+  var content = {
+    title : 'Dashboard'
+  };
 
+  var meta = generateMeta(req);
+
+  if (req.user) {
+    res.writeHead(200, {
+      'Content-Type' : CHARTYPE
+    });
+    res.end(getPageHTML('dashboard', meta));
+  } else {
+    res.redirect('/');
+  }
+};
 
 /*
 exports.render = function(req, res) {
