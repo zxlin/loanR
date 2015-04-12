@@ -62,6 +62,18 @@ PostSchema.statics = {
       });
       cb(err);
     });
+  },
+  create : function(params, socket, cb) {
+    var Post = mongoose.model('Post');
+
+    var post = new Post(params);
+    post.save(function(err) {
+      socket.broadcast.emit('addPost', {
+        post : post,
+        error : err
+      });
+      cb(err);
+    });
   }
 };
 

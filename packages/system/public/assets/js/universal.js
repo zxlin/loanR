@@ -32,3 +32,9 @@ socket.on('removePost', function(data) {
   $('#' + data.id).remove();
   notify('A listing has been removed.', '', null);
 });
+
+//Add post
+socket.on('addPost', function(data) {
+  populatePost($('#content-all'), data.post);
+  notify('A new listing has been added', '', null);
+});
