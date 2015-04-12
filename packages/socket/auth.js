@@ -4,6 +4,15 @@ var config = require('meanio').loadConfig();
 var ret = { };
 var app;
 
+var expected_time = function(amount, interest, monthly) {
+  for (var t = 1; t <= 10000; t++) {
+    if (Math.pow(amount * (1 + interest), t) - t * monthly <= 0) {
+      return t;
+    }
+  }
+  return Infinity;
+};
+
 /* Create a post
  * Data hash:
  * amount Number, 
@@ -17,13 +26,13 @@ ret.createPost = function(data) {
   var user = socket.user;
 
   var Post = mongoose.model('Post');
-  
+ 
   var post = new Post({
     poster : data.user,
     amount : data.amount,
     interest : data.interest,
     monthly_bill : data.monthly_bill,
-    estimated_completion : 0, //TODO Save
+    estimated_completion : expected_time(data.amount, data.interest, data.monthly_bill), 
     desired_rating : data.rating,
     role : data.user_role
   });
