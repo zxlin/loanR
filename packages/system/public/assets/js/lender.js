@@ -39,6 +39,7 @@ $(document).ready(function() {
   });
 
   socket.on('loadPosts', function(posts) {
+    $('.offer-card').remove();
     var length = posts.length;
     var x = 0;
     while (x < length) {
