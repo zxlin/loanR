@@ -6,9 +6,21 @@ var login = function() {
     email : $('#login-email').val(),
     password : $('#login-password').val()
   }).done(function(data) {
-    window.location = data.redirect;
+    $('#content').transition({
+      animation: 'fly down', 
+      duration: '1000ms',
+      onComplete: function() {
+        window.location = data.redirect;
+      }
+    });
   }).fail(function(data) {
-    alert('Username and passwords do not match.');
+    $('#content').transition({
+      animation: 'shake',
+      duration: '500ms',
+      onStart: function() {
+        $('#credential-warning').show();
+      }
+    }); 
   });
 };
 
@@ -29,6 +41,8 @@ $(document).ready(function(){
       .modal('show')
     ;
   });
+  // hide password warning
+  $('#credential-warning').hide();
   $('#main-lender-btn').on('click', function(){
     is_lender = true;
     is_borrower = false;
