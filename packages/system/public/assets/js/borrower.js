@@ -138,7 +138,7 @@ var populateCompleteLoan = function(target, loan) {
       .text('$' + loan.original_amount)
     )
     .append($('<td>')
-      .text('$' + (loan.interest * 100))
+      .text((loan.interest * 100) + '%')
     )
   );
 };
