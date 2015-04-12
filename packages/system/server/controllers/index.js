@@ -15,6 +15,7 @@ var generateMeta = function(req) {
     session.name = req.user.name;
     session.user = req.user._id;
     session.balance = req.user.balance;
+    session.rating = req.user.rating;
     //session.priv = req.user.priv;
     session.user_role = req.user.user_role;
     //session.verified = req.user.verified;
