@@ -32,6 +32,11 @@ $(document).ready(function() {
       monthly_bill : monthly,
       rating : rating
     });
+
+    $('#create-loan-total').val('');
+    $('#create-loan-interest').val('');
+    $('#create-loan-monthly').val('');
+    $('#create-loan-rating').val('');
   });
 
   $('#sidemenu-all').on('click', function() {
