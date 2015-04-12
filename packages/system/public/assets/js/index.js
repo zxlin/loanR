@@ -10,7 +10,12 @@ var login = function() {
       animation: 'fly down', 
       duration: '1000ms',
       onComplete: function() {
-        window.location = data.redirect;
+        $('body').transition({
+          animation: 'fade',
+          onComplete: function() {
+            window.location = data.redirect;
+          }
+        });
       }
     });
   }).fail(function(data) {
@@ -35,6 +40,9 @@ socket.on('createAccount', function(stat) {
 });
 
 $(document).ready(function(){
+  //fade in body
+  $('body').css('display', 'none');
+  $('body').fadeIn(1000);
   //Buttons
   $('#login-register-btn').on('click', function(){
     $('#registration-modal')
