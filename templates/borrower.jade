@@ -1,41 +1,62 @@
 extends layout
 
 block scripts
-  link(rel="stylesheet", href="/static/css/borrower.css")
-  script(src="/static/js/borrower.js")
-  title Borrower Page
+  link(rel="stylesheet", href="/static/css/customer.css")
+  script(src="/static/js/lender.js")
+  title Borrower Account
 
 block content
 
   div.ui.inverted.fixed.menu.navbar.page.grid#navbar
     a.brand.item(href="/") LoanR App
-    a.item(href="/dashboard") Dashboard
-    a.active.item Borrower
+    a.active.item Borrower Account
     div.right.menu
       a.item(href="/logout") Logout
+  div.ui.menu.navbar.page.grid#dash-header
+    h4.ui.header.white.icon
+      i.circular.home.icon(style="display: inline-block;")
+      h1(style="display: inline-block;") LoanR Dashboard
 
   div#content
-    div.ui.segment
-      div.ui.grid
-        div.eight.wide.column#customer
-          h1.ui.header 
-            span#customer-name #{name}
-            div.sub.header 
-              span Credit Score: 
-              span#customer-credit-score 750
-        div.eight.wide.column#balance
-          div#balance-content
-            div.ui.red.header#balance-loaned
-              span Loaned: 
-              span#customer-loaned $100
-            div.ui.green.header#balance-balance
-              span Balance: 
-              span#customer-balance $200
-    h4.ui.horizontal.header.divider
+    div.ui.four.column.grid
+      div.column
+        div.ui.teal.fluid.card
+          div.content
+            h1.ui.header 
+              div.content 
+                span#dash-balance $3000
+              i.circular.university.icon(style="display: inline; float: right;")
+            h2.header Bank Balance
+      div.twelve.wide.column
+        div.ui.three.column.grid
+          div.column
+            div.ui.red.fluid.card
+              div.content
+                h1.ui.header
+                  div.content
+                    span#dash-loans 7
+                  i.copy.icon(style="display: inline; float: right;")
+                h2.header Active Loans
+          div.column
+            div.ui.blue.fluid.card
+              div.content
+                h1.ui.header 
+                  div.content 
+                    span#dash-months-left 3 
+                  i.calendar.icon(style="display: inline; float: right;")
+                h2.header Months Left to Pay
+          div.column
+            div.ui.purple.fluid.card
+              div.content
+                h1.ui.header
+                  div.content
+                    span#dash-owe $500
+                  i.money.icon(style="display: inline; float: right;")
+                h2.header Owed to Lenders
+        h4.ui.horizontal.right.floated.divider(style="margin-top: 20px; margin-bottom: 0px;") Borrower Account
       
-      span Borrower Account
-    div.ui.grid
-      div.four.wide.column#side
+    div.ui.four.column.grid
+      div.column#side
         div.ui.vertical.menu#sidemenu
           a.active.teal.item#sidemenu-create(data-target="content-create") Create Loan Wish
           a.green.item#sidemenu-open(data-target="content-open") Loan Wishes
@@ -106,16 +127,16 @@ block content
               tr
                 th
                   i.dollar.icon
-                  span Loan Amount
-                th
-                  i.money.icon
-                  span Remaining Payment
+                  span Remaining Amount
                 th
                   i.calendar.icon
-                  span Remaining Months
+                  span Next Due Date
                 th
-                  i.world.icon
-                  span Interest Rate
+                  i.money.icon
+                  span Amount Due
+                th
+                  i.calendar.icon
+                  span Remaining Months 
                 th
                   i.payment.icon
                   span Pay
