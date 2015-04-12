@@ -40,6 +40,9 @@ $(document).ready(function(){
 
       var elem = $('<div>')
         .addClass('ui card offer-card')
+        .css({
+          'margin-right' : '20px'
+        })
         .append($('<div>')
           .addClass('content')
           .append($('<div>')
