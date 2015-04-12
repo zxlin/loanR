@@ -35,11 +35,48 @@ $(document).ready(function() {
   });
 
   $('#sidemenu-all').on('click', function() {
-    console.log('clicked');
     socket.emit('loadPosts', 'Borrower');
   });
 
   socket.on('loadPosts', function(posts) {
-    console.log(posts);
+    var length = posts.length;
+    var x = 0;
+    while (x < length) {
+      var post = posts[x];
+
+      var target = $('#content-all');
+
+      var elem = $('<div>')
+        .addClass('ui card offer-card')
+        .css({
+          'margin-right' : '20px',
+          'width' : 'calc(50% - 20px)'
+        })
+        .append($('<div>')
+          .addClass('content')
+          .append($('<div>')
+            .addClass('header')
+            .append($('<span>')
+              .text('$' + post.amount + ' Loan Offer')
+            )
+            .append($('<div>')
+              .addClass('meta')
+              .append($('<span>')
+                .text('Interest Rate ' + (post.interest * 100) + '%')
+              )
+            )
+            .append($('<p>')
+              .text((post.estimated_completion ? post.estimated_completion : Infinity) + '-month loan at $' + post.monthly_bill+ ' per month')
+            )
+            .append($('<div>')
+              .addClass('ui blue button submit')
+              .text('Take Loan')
+            )
+          )
+        )
+      ;
+      target.append(elem);
+      x++;
+    }
   });
 });
