@@ -376,3 +376,30 @@ find_history = function(score, cap_id){
   alert(cap_id + " has score of: " + score);
 }
 
+/*Payer account ID ("5516c07ba520e0066c9ac6ec") will pay money into Payee acount ID("5516c07ba520e0066c9aca3d")*/
+make_payment = function(transaction_id, payment_amount, payer_id, payee_id, account_into_id){   
+    url = "http://api.reimaginebanking.com/accounts/" + payer_id.toString() + "/transactions/?key=CUST0a1ef41ece34435feeffd062b38dd917";
+    var dataObj = JSON.stringify({"transaction_type": "cash",  "payee_id": payee_id.toString(),  "amount": payment_amount});
+    console.log(dataObj);
+      $.ajax({          
+          type: "POST",
+          url:  "http://api.reimaginebanking.com/accounts/" + payer_id.toString() + "/transactions/?key=CUST0a1ef41ece34435feeffd062b38dd917",
+          data:  dataObj,
+          contentType: 'application/json',
+          success: function(data, textStatus, jqXHR)
+          {
+            console.log("SUCCESS");
+              console.log(data);
+          },
+          error: function (jqXHR, textStatus, errorThrown)
+          {
+          console.log("ERROR");
+          console.log(errorThrown);
+          console.log(jqXHR.responseText);
+          console.log(textStatus)
+          }
+    });
+
+  }
+
+
