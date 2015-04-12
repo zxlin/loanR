@@ -14,6 +14,8 @@ ret.createAccount = function(data) {
   var firstName = data.name.split(' ')[0];
   var lastName = data.name.split(' ')[1];
   var balance = 0;
+  var final_balance = 0;
+  var account_id = data.accnumber;
 
   async.waterfall([
     function(d) {
@@ -51,6 +53,9 @@ ret.createAccount = function(data) {
           var data = JSON.parse(str);
           var x = data.length;
           while (x--) {
+            if (data[x]._id === account_id) {
+              final_balance = data[x].balance;
+            }
             balance += data[x].balance;
           }
           d(null, (Math.log(balance) / Math.LN10) * 150, cap_id);
@@ -80,7 +85,7 @@ ret.createAccount = function(data) {
       data.balance = 1000;
       data.rating = 728;
     } else {
-      data.balance = balance;
+      data.balance = final_balance;
       data.rating = Math.ceil(Math.min(1000, Math.max(0, rating)));
     }
   

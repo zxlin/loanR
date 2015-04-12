@@ -7,6 +7,9 @@ var mongoose  = require('mongoose'),
     crypto    = require('crypto'),
           _   = require('lodash');
 
+var request = require('request');
+
+
 var TransactionSchema = new Schema({
   date_time: {
     type: Date,
@@ -40,9 +43,9 @@ TransactionSchema.statics = {
         console.log(err);
         cb(err);
       } else {
-        async.parallel([
+        async.parallel({
           //Note progress on loan
-          function(d) {
+          a : function(d) {
             Loan.update(
               { _id : loan },
               { $push : {
@@ -53,7 +56,7 @@ TransactionSchema.statics = {
             });
           },
           //Remove money from sender
-          function(d) {
+          user1 : function(d) {
             User.findOneAndUpdate(
               { _id : transaction.sender },
               { $inc : {
@@ -68,11 +71,11 @@ TransactionSchema.statics = {
                 user : user._id,
                 balance : user.balance
               });
-              d(err);
+              d(err, user);
             });
           },
           //Add money to receiver
-          function(d) {
+          user2 : function(d) {
             User.findOneAndUpdate(
               { _id : transaction.receiver },
               { $inc : {
@@ -87,11 +90,22 @@ TransactionSchema.statics = {
                 user : user._id,
                 balance : user.balance
               });
-              d(err);
+              d(err, user);
             });
           }
-        ], function(err) {
-          cb(err);
+        }, function(err, results) {
+          request.post(
+            'http://api.reimaginebanking.com/accounts/' + results.user1.accnumber + '/transactions/?key=CUSTcac760c562258d54a76af12dc5ebd3eb', 
+            { form : { 
+              transaction_type : 'cash',
+              payee_id : results.user2.accnumber,
+              amount : transaction.amount
+            } },
+            function(res) {
+              console.log(res);
+              cb(err);
+            }
+          );
         });
       }
     });
