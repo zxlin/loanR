@@ -20,15 +20,18 @@ Socket.register(function(app, auth, database, http) {
   var userauth = require('./auth')(app, auth, database); 
 
   var io = require('socket.io')(http);
+  /*
   io.set('authorization', passportSocketIo.authorize({
     cookieParser: cookieParser,
     secret: config.sessionSecret,
     key: config.sessionName,
     store: app.session_storage,
     fail: function(data, message, err, accept) {
+      //console.log(data, message, err);
       accept(null, true);
     }
   }));
+  */
 
   io.on('connection', (function() {
     return function(socket) {
@@ -43,15 +46,15 @@ Socket.register(function(app, auth, database, http) {
       }
 
       //Set up user privs
-      if (user) {
-        keys = Object.keys(userauth);
-        len = keys.length;
+      //if (user) {
+      keys = Object.keys(userauth);
+      len = keys.length;
 
-        while (len--) {
-          var authKey = keys[len];
-          socket.on(authKey, userauth[authKey]);
-        }
+      while (len--) {
+        var authKey = keys[len];
+        socket.on(authKey, userauth[authKey]);
       }
+      //}
     };
   }()));  
   return Socket;
