@@ -109,7 +109,6 @@ $(document).ready(function(){
     var amount = parseInt($('#create-loan-total').val());
     var interest = parseInt($('#create-loan-interest').val()) / 100;
     var monthly = parseInt($('#create-loan-monthly').val());
-    var rating = parseInt($('#create-loan-rating').val());
 
     socket.emit('createPost', {
       user : user,
@@ -117,8 +116,11 @@ $(document).ready(function(){
       amount : amount,
       interest : interest,
       monthly_bill : monthly,
-      rating : rating
     });
+    
+    $('#create-loan-total').val('');
+    $('#create-loan-interest').val('');
+    $('#create-loan-monthly').val('');
   });
 
   //Load user's loan wishes
@@ -151,9 +153,19 @@ $(document).ready(function(){
     $('#content-search-result').hide();
   });
 
-  //
+  //Notify when post is created
+  socket.on('createPost', function(data) {
+    notify('Your listing was successfully created.', 'Your listing could not be created', data);
+  });
+
+  //Notify when post is deleted
+  socket.on('deletePost', function(data) {
+    notify('You successfully delisted a loan wish', 'Sorry, there was an error when attemping to delist your loan wish', data);
+  });
+
+  //Notify when loan is taken
   socket.on('takeLoan', function(data) {
-    console.log(data);
+    notify('You have successfully taken a loan!', 'Sorry, there was an error when attemping to take the loan', data);
   });
 
   //Populate active loans

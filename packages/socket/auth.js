@@ -40,10 +40,8 @@ ret.createPost = function(data) {
   post.save(function(err) {
     if (err) {
       console.log(err);
-      socket.emit('createPost', false);
-    } else {
-      socket.emit('createPost', true);
     }
+    socket.emit('createPost', err);
   });
 };
 
@@ -56,10 +54,9 @@ ret.deletePost = function(post) {
     { _id : post }
   ).exec(function(err) {
     if (err) {
-      socket.emit('deletePost', false);
-    } else {
-      socket.emit('deletePost', true);
+      console.log(err);
     }
+    socket.emit('deletePost', err);
   });
 };
 
@@ -119,10 +116,8 @@ ret.takeLoan = function(data) {
   ], function(err, result) {
     if (err) {
       console.error(err);
-      socket.emit('takeLoan', false);
-    } else {
-      socket.emit('takeLoan', true);
     }
+    socket.emit('takeLoan', err);
   });
 };
 
