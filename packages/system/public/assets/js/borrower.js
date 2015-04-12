@@ -32,6 +32,7 @@ var populatePost = function(target, post) {
               role : user_role,
               postId : post.data('id')
             });
+//            $(this).parent().parent().parent()
           })
         )
       )
@@ -130,7 +131,7 @@ $(document).ready(function(){
 
   //Load all loan offers
   $('#sidemenu-all').on('click', function() {
-    socket.emit('loadPosts', 'Lender');
+    socket.emit('loadPosts', (user_role === 'Lender') ? 'Borrower' : 'Lender');
   });
 
   //Load all active loans
