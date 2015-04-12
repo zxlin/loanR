@@ -25,7 +25,6 @@ var expected_time = function(amount, interest, monthly) {
  */
 ret.createPost = function(data) {
   var socket = this;
-  var user = socket.user;
 
   var Post = mongoose.model('Post');
  
@@ -48,12 +47,27 @@ ret.createPost = function(data) {
   });
 };
 
-/* select a Loan
+ret.deletePost = function(post) {
+  var socket = this;
+
+  var Post = mongoose.model('Post');
+
+  Post.remove(
+    { _id : post }
+  ).exec(function(err) {
+    if (err) {
+      socket.emit('deletePost', false);
+    } else {
+      socket.emit('deletePost', true);
+    }
+  });
+};
+
+/* take a Loan
  * Data: postId
  */
 ret.takeLoan = function(data) {
   var socket = this;
-  var user = socket.user;
 
   var postId = data.postId;
 
@@ -75,30 +89,32 @@ ret.takeLoan = function(data) {
       
       if (post.role === 'Lender') {
         lender = post.poster;
-        borrower = user._id;
+        borrower = data.user;
       } else {
-        lender = user._id;
+        lender = data.user;
         borrower = post.poster;
       }
 
       var loan = new Loan({
         lender : lender,
         borrower : borrower,
-        monthly_fee : post.monthly_fee,
+        monthly_bill : post.monthly_bill,
         amount_left : post.amount,
-        monthly_fee_left_to_pay_this_month : post.monthly_fee,
+        original_amount : post.amount,
+        interest : post.interest,
+        monthly_fee_left_to_pay_this_month : post.monthly_bill,
         pay_day : (new Date()).getDay(),
         missed_last_payment : false,
-        estimated_time_left: 0 //TODO use func
+        estimated_time_left: expected_time(post.amount, post.interest, post.monthly_bill)
       });
       loan.save(function(err) {
         d(err, loan);
       });
     },
-    function(loan) {
+    function(loan, d) {
       Post.remove({
         _id : postId
-      }).exec(c);
+      }).exec(d);
     }
   ], function(err, result) {
     if (err) {
@@ -112,12 +128,9 @@ ret.takeLoan = function(data) {
 
 /* Filter posts/ search posts
  * Data hash:
- * min_amount Number, 
- * max_amount Number, 
- * min_interest number,
- * max_interest Number,
- * min_monthly Number,
- * max_mountly Number,
+ * amount Number, 
+ * interest number,
+ * monthly Number,
  */
 ret.query = function(data) {
   var socket = this;
@@ -145,6 +158,7 @@ ret.query = function(data) {
   });
 };
 
+//Get all posts of a type
 ret.loadPosts = function(data) {
   var socket = this;
 
@@ -156,14 +170,28 @@ ret.loadPosts = function(data) {
   });
 };
 
-// get open loans
-ret.openLoans = function() {
+//Get all posts from a user
+ret.loadUserPosts = function(user) {
   var socket = this;
-  var user = socket.user;
+
+  var Post = mongoose.model('Post');
+  Post.find({
+    poster : user
+  }).exec(function(err, posts) {
+    socket.emit('loadUserPosts', posts);
+  });
+};
+
+// get open loans
+ret.openLoans = function(user) {
+  var socket = this;
+  
   var Loan = mongoose.model('Loan');
   Loan.find({
     $and: [{
-      state : 'Open'
+      amount_left : {
+        $ne : 0
+      }
     }, {
       $or: [{
         lender : user
@@ -171,7 +199,7 @@ ret.openLoans = function() {
         borrower : user
       }]
     }]
-  }).or().exec(function(err, loans) {
+  }).exec(function(err, loans) {
     if (err) {
       console.error(err);
     }

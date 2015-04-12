@@ -23,12 +23,74 @@ var populatePost = function(target, post) {
         )
         .append($('<div>')
           .addClass('ui blue button submit')
+          .data('id', post._id)
           .text('Take Loan')
+          .on('click', function() {
+            var post = $(this);
+            socket.emit('takeLoan', {
+              user : user,
+              role : user_role,
+              postId : post.data('id')
+            });
+          })
         )
       )
     )
   );
 };
+
+var populatePostTable = function(target, post) {
+  $(target).append($('<tr>')
+    .append($('<td>')
+      .text(post.amount)
+    )
+    .append($('<td>')
+      .text(post.monthly_bill)
+    )
+    .append($('<td>')
+      .text(post.estimated_completion)
+    )
+    .append($('<td>')
+      .text((post.interest * 100 + '%'))
+    )
+    .append($('<td>')
+      .css({
+        'text-align' : 'center'
+      })
+      .append($('<i>')
+        .data('id', post._id)
+        .addClass('red icon remove')
+        .css({
+          'cursor' : 'pointer'
+        })
+        .on('click', function() {
+          socket.emit('deletePost', $(this).data('id'));
+          $(this).parent().parent().remove();
+        })
+      )
+    )
+  );
+};
+
+var populateLoanTable = function(target, loan) {
+  $(target).append($('<tr>')
+    .append($('<td>')
+      .text(loan.original_amount)
+    )
+    .append($('<td>')
+      .text(loan.amount_left)
+    )
+    .append($('<td>')
+      .text(loan.estimated_time_left)
+    )
+    .append($('<td>')
+      .text((loan.interest * 100 + '%'))
+    )
+    .append($('<td>')
+    )
+  );
+};
+
 
 $(document).ready(function(){
   $('#content-box').children().hide();
@@ -59,9 +121,19 @@ $(document).ready(function(){
     });
   });
 
+  //Load user's loan wishes
+  $('#sidemenu-open').on('click', function() {
+    socket.emit('loadUserPosts', user);
+  });
+
   //Load all loan offers
   $('#sidemenu-all').on('click', function() {
     socket.emit('loadPosts', 'Lender');
+  });
+
+  //Load all active loans
+  $('#sidemenu-active').on('click', function() {
+    socket.emit('openLoans', user);
   });
 
   //Query for loan offers
@@ -77,6 +149,35 @@ $(document).ready(function(){
   //Hide search results 
   $('#sidemenu-search').on('click', function() {
     $('#content-search-result').hide();
+  });
+
+  //
+  socket.on('takeLoan', function(data) {
+    console.log(data);
+  });
+
+  //Populate active loans
+  socket.on('openLoans', function(loans) {
+    var target = $('#contracted-body').empty();
+    var length = loans.length;
+    var x = 0;
+    while (x < length) {
+      var loan = loans[x];
+      populateLoanTable(target, loan);
+      x++;
+    }
+  });
+
+  //Populate users offers
+  socket.on('loadUserPosts', function(posts) {
+    var target = $('#content-open tbody').empty();
+    var length = posts.length;
+    var x = 0;
+    while (x < length) {
+      var post = posts[x];
+      populatePostTable(target, post);
+      x++;
+    }
   });
 
   //Populate searched loan offers
