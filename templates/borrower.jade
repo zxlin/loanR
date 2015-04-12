@@ -38,8 +38,8 @@ block content
       div.four.wide.column#side
         div.ui.vertical.menu#sidemenu
           a.active.teal.item#sidemenu-create(data-target="content-create") Create Loan Wish
-          a.green.item#sidemenu-open(data-target="content-open") Open Loans
-          a.yellow.item#sidemenu-contracted(data-target="content-contracted") Contracted Loans
+          a.green.item#sidemenu-open(data-target="content-open") Loan Wishes
+          a.yellow.item#sidemenu-active(data-target="content-active") Active Loans
           a.red.item#sidemenu-closed(data-target="content-closed") Closed Loans
         div.ui.vertical.menu#sidemenu2
           a.blue.item#sidemenu-all(data-target="content-all") View All Loan Offers
@@ -93,10 +93,10 @@ block content
                   span Action
             tbody#open-body
               
-        div.ui.segment#content-contracted(style="margin-top: 0px;")
+        div.ui.segment#content-active(style="margin-top: 0px;")
           h1.ui.dividing
             i.book.icon
-            span Contracted Loans
+            span Active Loans
           div.ui.fitted.divider
           table.ui.celled.striped.table
             thead
@@ -145,14 +145,7 @@ block content
           h1.ui.dividing
             i.search.icon
             span All Loan Offers
-          div.ui.fitted.divider
-          div.ui.card
-            div.content
-              div.header $100 Loan Offer
-                div.meta
-                  span Interest Rate 5%
-                p 2 month loan at $50 per month
-                div.ui.blue.button.submit Offer a Loan
+          div.ui.fitted.divider 
         div.ui.segment#content-search(style="margin-top: 0px;")
           div.ui.form
             h1.ui.dividing

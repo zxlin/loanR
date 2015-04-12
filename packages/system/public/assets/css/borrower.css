@@ -19,3 +19,8 @@
 #balance-balance {
   margin-top: -10px;
 }
+
+.offer-card {
+  float: left;
+  margin-right: 20px; !important
+}
