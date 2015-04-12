@@ -198,7 +198,7 @@ ret.openLoans = function(user) {
   Loan.find({
     $and: [{
       amount_left : {
-        $ne : 0
+        $gt : 0
       }
     }, {
       $or: [{
@@ -216,6 +216,76 @@ ret.openLoans = function(user) {
   // query all loans where user is the lender or borrower
   // add all to return array
 };
+
+/*
+ret.getLoanById = function(id) {
+  var socket = this;
+
+  var Loan = mongoose.model('Loan');
+
+  Loan.findOne(
+    { _id : id }
+  ).exec(function(err, loan) {
+    socket.emit('getLoanById', loan);
+  });
+};
+*/
+
+ret.makePayment = function(data) {
+  var socket = this;
+
+  var user = data.user;
+  var loan = data.loan;
+  var amount = data.amount;
+
+  var Loan = mongoose.model('Loan');
+  var Transaction = mongoose.model('Transaction');
+
+  async.waterfall([
+    function(d) {
+      Loan.update(
+        { _id : loan },
+        { $inc : {
+          amount_left : (amount * -1),
+          monthly_fee_left_to_pay_this_month : (amount * -1)
+        } }
+      ).exec(function(err) {
+        d(err); 
+      });
+    },
+    function(d) {
+      Loan.estimate_time(loan, function(err) {
+        d(err);
+      });
+    },
+    function(d) {
+      Loan.findOne(
+        { _id : loan }
+      ).exec(function(err, loan) {
+        d(err, loan);
+      });
+    },
+    function(loan, d) {
+      Transaction.create({
+        sender : loan.borrower,
+        receiver : loan.lender,
+        amount : amount
+      }, loan._id, function(err) {
+        d(err, loan);
+      });
+    }
+  ], function(err, loan) {
+    if (err) {
+      console.log(err);
+    }
+    socket.emit('makePayment', {
+      loan : loan,
+      error : err || null
+    });
+  });
+};
+
+/*
 // get contracted loans
 ret.contractedLoans = function() {
   var socket = this;
@@ -265,7 +335,7 @@ ret.closedLoans = function() {
   // query all loans where user is the lender or borrower
   // add all to return array
 };
-
+*/
 /* Create a transaction 
  * Data hash:
  * date_time Date, 
@@ -273,6 +343,7 @@ ret.closedLoans = function() {
  * receiver userid, 
  * amount Number
  */
+ /*
 ret.createTransaction = function(data) {
   var socket = this;
 
@@ -317,6 +388,8 @@ ret.userTransactions = function(data) {
     socket.emit('userTransactions', transactions);
   });
 };
+*/
+
 
 var find_person = function(first_name, last_name, cb){
   var cap_id;  

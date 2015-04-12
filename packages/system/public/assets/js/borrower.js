@@ -87,7 +87,7 @@ var populateLoanTable = function(target, loan) {
       .text((date.getDate() < loan.pay_day) ? ((date.getMonth() + 1)+ '/' + loan.pay_day) : ((date.getMonth() + 2) + '/' + loan.pay_day))
     )
     .append($('<td>')
-      .text('$' + loan.monthly_fee_left_to_pay_this_month)
+      .text('$' + Math.max(0, loan.monthly_fee_left_to_pay_this_month))
     )
     .append($('<td>')
       .text(loan.estimated_time_left)
@@ -98,12 +98,33 @@ var populateLoanTable = function(target, loan) {
       })
       .append($('<i>')
         .data('id', loan._id)
+        .data('to_pay', Math.max(0, loan.monthly_fee_left_to_pay_this_month))
         .addClass('icon payment')
         .css({
           'cursor' : 'pointer'
         })
         .on('click', function() {
-          console.log('clicked');
+          var loan = $(this).data('id');
+          var to_pay = parseInt($(this).data('to_pay'));
+          $('#payment-amount').val(to_pay);
+          $('#payment-modal').modal({
+            closable : true,
+            onApprove : function() {
+              to_pay = parseInt($('#payment-amount').val());
+              var have_money = to_pay <= balance;
+              if (!have_money) {
+                notify('', 'Could not make payment: ', 'You do not have enough funds in your account');
+              } else if (to_pay <= 0) {
+                notify('', 'Could not make payment: ', 'You must pay a positive amount of money');
+              } else {
+                socket.emit('makePayment', {
+                  user : user,
+                  loan : loan,
+                  amount : to_pay
+                });
+              }
+            }
+          }).modal('show');
         })
       )
     )
@@ -181,6 +202,23 @@ $(document).ready(function(){
   socket.on('deletePost', function(data) {
     $('#' + data.id).remove();
     notify('You successfully delisted a loan wish', 'Sorry, there was an error when attemping to delist your loan wish', data.error);
+  });
+
+  //Notify when loan payment made
+  socket.on('makePayment', function(data) {
+
+    notify('You successfully made a loan payment', 'Sorry, there was an error when attemping to make your loan payment', data.error);
+    if (data.loan) {
+      var target = $('#' + data.loan._id);
+      if (data.loan.amount_left <= 0) {
+        target.remove();
+      } else {
+        target.find('i').data('to_pay', Math.max(0, data.loan.monthly_fee_left_to_pay_this_month));
+        target.find('td').first().text('$' + data.loan.amount_left);
+        target.find('td').first().next().next().text('$' + Math.max(0, data.loan.monthly_fee_left_to_pay_this_month));
+        target.find('td').first().next().next().next().text(data.loan.estimated_time_left);
+      }
+    }
   });
 
   //Notify when loan is taken
