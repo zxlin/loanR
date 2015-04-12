@@ -2,7 +2,7 @@ extends layout
 
 block scripts
   link(rel="stylesheet", href="/static/css/customer.css")
-  script(src="/static/js/lender.js")
+  script(src="/static/js/borrower.js")
   title Borrower Account
 
 block content
@@ -107,7 +107,7 @@ block content
                   span Monthly Payment
                 th
                   i.calendar.icon
-                  span Loan Time
+                  span Loan Duration (Months)
                 th
                   i.world.icon
                   span Interest Rate
@@ -127,7 +127,7 @@ block content
               tr
                 th
                   i.dollar.icon
-                  span Remaining Amount
+                  span Payoff Amount
                 th
                   i.calendar.icon
                   span Next Due Date
@@ -155,10 +155,7 @@ block content
                   span Loan Amount
                 th
                   i.money.icon
-                  span Remaining Payment
-                th
-                  i.calendar.icon
-                  span Remaining Months
+                  span Loan Duration (Months)
                 th
                   i.world.icon
                   span Interest Rate
