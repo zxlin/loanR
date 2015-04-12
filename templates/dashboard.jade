@@ -9,11 +9,11 @@ block content
 
   div.ui.inverted.fixed.menu.navbar.page.grid#navbar
     a.brand.item(href="/") LoanR App
-    a.item(href="/dashboard") Dashboard
+    a.active.item(href="/dashboard") Dashboard
     if user_role === "Borrower" 
-      a.active.item(href="/borrower") Borrower
+      a.item(href="/borrower") Borrower
     else
-      a.active.item(href="/lender") Lender
+      a.item(href="/lender") Lender
     div.right.menu
       a.item(href="/logout") Logout
   div.ui.menu.navbar.page.grid#dash-header
@@ -55,10 +55,5 @@ block content
                 span#dash-owe $500
               i.money.icon(style="display: inline; float: right;")
             h2.header Owed to Lenders
-
-
-
-
-
-
-
+    div.ui.segment
+      h1.header lolz

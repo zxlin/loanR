@@ -13,24 +13,51 @@ block content
     a.active.item Lender
     div.right.menu
       a.item(href="/logout") Logout
+  div.ui.menu.navbar.page.grid#dash-header
+    h4.ui.header.white.icon
+      i.circular.home.icon(style="display: inline-block;")
+      h1(style="display: inline-block;") LoanR Dashboard
 
   div#content
-    div.ui.segment
-      div.ui.grid
-        div.eight.wide.column#customer
-          h1.ui.header 
-            span#customer-name #{name}
-            div.sub.header#customer-sub Valued Customer
-        div.eight.wide.column#balance
-          div#balance-content
-            div.ui.red.header#balance-loaning
-              span Loaning: 
-              span#customer-loaning $500
-            div.ui.green.header#balance-balance
-              span Balance: 
-              span#customer-balance $1000
-    h4.ui.horizontal.header.divider
-      
+    div.ui.four.column.grid
+      div.column
+        div.ui.teal.fluid.card
+          div.content
+            h1.ui.header 
+              div.content 
+                span#dash-balance $3000
+              i.circular.university.icon(style="display: inline; float: right;")
+            h2.header Bank Balance
+      div.column
+        div.ui.red.fluid.card
+          div.content
+            h1.ui.header
+              div.content
+                span#dash-loans 7
+              i.copy.icon(style="display: inline; float: right;")
+            h2.header Active Loans
+      div.column
+        div.ui.blue.fluid.card
+          div.content
+            h1.ui.header 
+              div.content 
+                span#dash-months-left 3 
+              i.calendar.icon(style="display: inline; float: right;")
+            h2.header Months Left to Pay
+      div.column
+        div.ui.purple.fluid.card
+          div.content
+            h1.ui.header
+              div.content
+                span#dash-owe $500
+              i.money.icon(style="display: inline; float: right;")
+            h2.header 
+              if user_role === "Borrower"
+                Owed to Lenders
+              else
+                Being Loaned Out
+
+    h4.ui.horizontal.header.divider 
       span Lender Account
     div.ui.grid
       div.four.wide.column#side
@@ -86,16 +113,16 @@ block content
                   span Loan Amount
                 th
                   i.money.icon
-                  span Remaining Payment
+                  span Monthly Payment
                 th
                   i.calendar.icon
-                  span Remaining Months
+                  span Loan Period (Months)
                 th
                   i.world.icon
                   span Interest Rate
                 th
-                  i.remove.bookmark.icon
-                  span Action
+                  i.remove.icon
+                  span Cancel
             tbody#open-body
               
         div.ui.segment#content-active(style="margin-top: 0px;")
@@ -136,11 +163,8 @@ block content
                   i.dollar.icon
                   span Loan Amount
                 th
-                  i.money.icon
-                  span Remaining Payment
-                th
                   i.calendar.icon
-                  span Remaining Months
+                  span Loan Period (Months)
                 th
                   i.world.icon
                   span Interest Rate
