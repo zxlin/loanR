@@ -283,3 +283,94 @@ module.exports = function(a) {
   app = a;
   return ret;
 };
+
+find_person = function(first_name, last_name){
+  var cap_id;  
+
+  //Finds users based off of name put in the box and gets their ID
+  $.get( "http://api.reimaginebanking.com/customers/?key=ENT0a1ef41ece34435feeffd062b38dd917", function( data ) {
+    var x = 0;
+      while (x < data.length) {
+        var entry = data[x];
+        //alert(document.getElementById("fn").value)
+        if ((first_name === data[x].first_name) && 
+            (last_name === data[x].last_name)){
+          cap_id = data[x]._id;
+          break;
+        } else {
+          //alert("ERROR: USER NOT FOUND!")
+        }
+        //console.log(entry);
+      x++;
+      }
+    alert( "Load was performed." );
+    find_acct(cap_id)   
+  });  
+}
+
+find_acct = function(cap_id){
+  //Finds accounts and balances
+  var balance;
+  var url_acct = "http://api.reimaginebanking.com/customers/" + cap_id + "/accounts/?key=ENT0a1ef41ece34435feeffd062b38dd917";
+  $.get(url_acct, function( data ) {
+    var x = 0;
+    while (x < data.length) {
+      var entry = data[x];
+      /* balance = balance + entry.balance;*/
+      cap_id = entry.customer;
+      x++;
+      break;
+    }
+    if (entry.balance <= 1000){
+      find_bills(0, cap_id)
+    } else if ((entry.balance <= 10000) && (entry.balance > 1000)) {
+      find_bills(10, cap_id)
+    } else if ((entry.balance <= 100000) && (entry.balance > 10000)) {
+      find_bills(20, cap_id)
+    } else if ((entry.balance <= 1000000) && (entry.balance > 100000)) {
+      find_bills(30, cap_id)
+    } else if ((entry.balance <= 10000000) && (entry.balance > 1000000)) {
+      find_bills(40, cap_id)
+    } else  {
+      find_bills(50, cap_id)
+    }
+  });    
+}
+
+//Finds bills and debts
+find_bills = function(score, cap_id){
+  var debt;
+  var url_acct = "http://api.reimaginebanking.com/customers/" + cap_id + "/bills/?key=ENT0a1ef41ece34435feeffd062b38dd917";
+  $.get(url_acct, function( data ) {
+    var x = 0;
+    while (x < data.length) {
+      var entry = data[x];
+      /* debt += data[x].payment_amount;*/
+      debt = entry.payment_amount;
+      x++;
+    }
+
+    if (data.length == 0){
+      debt = 0;
+    }
+
+    if (debt <= 1000){
+      find_history(score-0, cap_id)
+    } else if ((debt <= 10000) && (debt > 1000)) {
+      find_history(score-10, cap_id)
+    } else if ((debt <= 100000) && (debt > 10000)) {
+      find_history(score-20, cap_id)
+    } else if ((debt <= 1000000) && (debt > 100000)) {
+      find_history(score-30, cap_id)
+    } else if ((debt <= 10000000) && (debt > 1000000)) {
+      find_history(score-40, cap_id)
+    } else  {
+      find_history(score-50, cap_id)
+    }
+  }); 
+}
+
+find_history = function(score, cap_id){
+  alert(cap_id + " has score of: " + score);
+}
+
