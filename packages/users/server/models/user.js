@@ -60,6 +60,10 @@ var UserSchema = new Schema({
     type: String,
     required: true,
   },
+  balance : {
+    type : Number,
+    default : 1000
+  },
   email: {
     type: String,
     required: true,

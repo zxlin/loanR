@@ -72,6 +72,7 @@ ret.takeLoan = function(data) {
 
   var Loan = mongoose.model('Loan');
   var Post = mongoose.model('Post');
+  var Transaction = mongoose.model('Transaction');
 
   async.waterfall([
     function(d) {
@@ -111,6 +112,15 @@ ret.takeLoan = function(data) {
       });
     },
     function(loan, d) {
+      Transaction.create({
+        sender : loan.lender,
+        receiver : loan.borrower,
+        amount : loan.amount_left
+      }, loan._id, function(err) {
+        d(err);
+      });
+    },
+    function(d) {
       Post.del(postId, socket, d);
     }
   ], function(err, result) {
