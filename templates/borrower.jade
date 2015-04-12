@@ -8,8 +8,8 @@ block scripts
 block content
 
   div.ui.inverted.fixed.menu.navbar.page.grid#navbar
-    a.brand.item LoanR App
-    a.item(href="/") Home
+    a.brand.item(href="/") LoanR App
+    a.item(href="/dashboard") Dashboard
     a.active.item Borrower
     div.right.menu
       a.item(href="/logout") Logout
@@ -47,9 +47,10 @@ block content
       div.twelve.wide.column#content-box
         div.ui.segment#content-create
           div.ui.form#create-loan
-            h1.ui.dividing 
+            h2.ui.header 
               i.money.icon 
-              span Create a Loan Wish
+              div.content Create a Loan Wish
+                div.sub.header If someone accepts your loan wish, you will be offered a loan
             div.ui.fitted.divider
             div.field
               label Total Loan Amount
@@ -69,9 +70,10 @@ block content
             div.field
               div.ui.green.button.submit#create-loan-btn Submit Wish
         div.ui.segment#content-open(style="margin-top: 0px;")
-          h1.ui.dividing
+          h2.ui.header
             i.dollar.icon
-            span Loan Wishes
+            div.content Loan Wishes
+              div.sub.header Unfulfilled loan wishes
           div.ui.fitted.divider
           table.ui.celled.striped.table
             thead
@@ -81,10 +83,10 @@ block content
                   span Loan Amount
                 th
                   i.money.icon
-                  span Remaining Payment
+                  span Monthly Payment
                 th
                   i.calendar.icon
-                  span Remaining Months
+                  span Loan Time
                 th
                   i.world.icon
                   span Interest Rate
@@ -94,9 +96,10 @@ block content
             tbody#open-body
               
         div.ui.segment#content-active(style="margin-top: 0px;")
-          h1.ui.dividing
+          h2.ui.header
             i.book.icon
-            span Active Loans
+            div.content Active Loans
+              div.sub.header Loans that you are currently paying off
           div.ui.fitted.divider
           table.ui.celled.striped.table
             thead
@@ -118,9 +121,10 @@ block content
                   span Pay
             tbody#contracted-body
         div.ui.segment#content-closed(style="margin-top: 0px;")
-          h1.ui.dividing
+          h2.ui.header
             i.history.icon
-            span Closed Loans
+            div.content Closed Loans
+              div.sub.header Loans that you have already paid off
           div.ui.fitted.divider
           table.ui.celled.striped.table
             thead
@@ -142,15 +146,17 @@ block content
                   span Details
             tbody#closed-body
         div.ui.segment#content-all(style="margin-top: 0px;")
-          h1.ui.dividing
+          h2.ui.header 
             i.search.icon
-            span All Loan Offers
+            div.content All Loan Offers
+              div.sub.header All available loan offers that you qualify for
           div.ui.fitted.divider 
         div.ui.segment#content-search(style="margin-top: 0px;")
           div.ui.form
-            h1.ui.dividing
+            h2.ui.header
               i.search.icon
-              span Search for Loan Offers
+              div.content Search for Loan Offers
+                div.sub.header Search for loans based on your needs
             div.ui.fitted.divider
             div.field
               label Total Loan Amount
@@ -170,8 +176,9 @@ block content
             div.field
               div.ui.blue.button.submit#search-wish-btn Search 
          div.ui.segment#content-search-result(style="margin-top: 0px;") 
-          h1.ui.dividing
+          h2.ui.header
             i.search.icon
-            span Loan Offers Search Results
+            div.content Loan Offers Search Results
+              div.sub.header Results that matched your loan criteria
           div.ui.fitted.divider
 
