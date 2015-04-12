@@ -55,10 +55,7 @@ ret.deletePost = function(post) {
     if (err) {
       console.log(err);
     }
-    socket.emit('deletePost', {
-      id : post,
-      error : err 
-    });
+    socket.emit('deletePost', err);
   });
 };
 

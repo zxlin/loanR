@@ -70,7 +70,6 @@ var populatePostTable = function(target, post) {
         })
         .on('click', function() {
           socket.emit('deletePost', $(this).data('id'));
-//          $(this).parent().parent().remove();
         })
       )
     )
@@ -78,13 +77,15 @@ var populatePostTable = function(target, post) {
 };
 
 var populateLoanTable = function(target, loan) {
+  var date = new Date();
+  console.log(loan);
   $(target).append($('<tr>')
     .attr('id', loan._id)
     .append($('<td>')
-      .text(loan.original_amount)
+      .text(loan.amount_left)
     )
     .append($('<td>')
-      .text(loan.amount_left)
+      .text((date.getDate() < loan.pay_day) ? ((date.getMonth() + 1)+ '/' + loan.pay_day) : ((date.getMonth() + 2) + '/' + loan.pay_day))
     )
     .append($('<td>')
       .text(loan.estimated_time_left)
@@ -93,6 +94,19 @@ var populateLoanTable = function(target, loan) {
       .text((loan.interest * 100 + '%'))
     )
     .append($('<td>')
+      .css({
+        'text-align' : 'center'
+      })
+      .append($('<i>')
+        .data('id', loan._id)
+        .addClass('icon payment')
+        .css({
+          'cursor' : 'pointer'
+        })
+        .on('click', function() {
+          console.log('clicked');
+        })
+      )
     )
   );
 };
