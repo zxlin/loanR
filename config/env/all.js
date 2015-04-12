@@ -17,7 +17,7 @@ module.exports = {
       cert: ''
     }
   },
-  hostname: process.env.HOST || process.env.HOSTNAME,
+  hostname: '0.0.0.0', // process.env.HOST || process.env.HOSTNAME,
   db: process.env.MONGOHQ_URL,
   templateEngine: 'swig',
 
