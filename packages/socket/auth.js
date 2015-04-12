@@ -102,7 +102,7 @@ ret.takeLoan = function(data) {
         original_amount : post.amount,
         interest : post.interest,
         monthly_fee_left_to_pay_this_month : post.monthly_bill,
-        pay_day : (new Date()).getDay(),
+        pay_day : (new Date()).getDate(),
         missed_last_payment : false,
         estimated_time_left: expected_time(post.amount, post.interest, post.monthly_bill)
       });

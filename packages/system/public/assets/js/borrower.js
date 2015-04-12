@@ -78,20 +78,19 @@ var populatePostTable = function(target, post) {
 
 var populateLoanTable = function(target, loan) {
   var date = new Date();
-  console.log(loan);
   $(target).append($('<tr>')
     .attr('id', loan._id)
     .append($('<td>')
-      .text(loan.amount_left)
+      .text('$' + loan.amount_left)
     )
     .append($('<td>')
       .text((date.getDate() < loan.pay_day) ? ((date.getMonth() + 1)+ '/' + loan.pay_day) : ((date.getMonth() + 2) + '/' + loan.pay_day))
     )
     .append($('<td>')
-      .text(loan.estimated_time_left)
+      .text('$' + loan.monthly_fee_left_to_pay_this_month)
     )
     .append($('<td>')
-      .text((loan.interest * 100 + '%'))
+      .text(loan.estimated_time_left)
     )
     .append($('<td>')
       .css({
