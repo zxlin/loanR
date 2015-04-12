@@ -49,7 +49,20 @@ var PostSchema = new Schema({
   }
 });
 
-PostSchema.statics = { 
+PostSchema.statics = {
+  del : function(id, socket, cb) {
+    var Post = mongoose.model('Post');
+
+    Post.remove({
+      _id : id
+    }).exec(function(err) {
+      socket.broadcast.emit('removePost', {
+        id : id,
+        error : err
+      });
+      cb(err);
+    });
+  }
 };
 
 mongoose.model('Post', PostSchema);

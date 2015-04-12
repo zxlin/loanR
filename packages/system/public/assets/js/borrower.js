@@ -1,4 +1,7 @@
 var populatePost = function(target, post) {
+  if (post.role === user_role) {
+    return;
+  }
   $(target).append($('<div>')
     .attr('id', post._id)
     .addClass('ui card offer-card')

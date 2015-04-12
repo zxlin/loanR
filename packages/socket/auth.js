@@ -112,9 +112,7 @@ ret.takeLoan = function(data) {
       });
     },
     function(loan, d) {
-      Post.remove({
-        _id : postId
-      }).exec(d);
+      Post.del(postId, socket, d);
     }
   ], function(err, result) {
     if (err) {
