@@ -1,0 +1,34 @@
+#content {
+  margin-left: auto;
+  margin-right: auto;
+  width: 60%; 
+}
+
+#balance {
+  float: right;
+}
+
+#customer {
+  float: left;
+}
+
+#balance-content {
+  float: right;
+}
+#balance-balance {
+  margin-top: -10px;
+}
+
+.offer-card {
+  float: left;
+}
+
+#sidemenu {
+  width: 100%;
+}
+#sidemenu2 {
+  width: 100%;
+}
+
+
+
