@@ -1,0 +1,79 @@
+extends layout
+
+block scripts
+  link(rel="stylesheet", href="/static/css/index.css")
+  script(src="/static/js/index.js")
+  title LoanR app
+
+block content
+
+  //
+    div.ui.inverted.fixed.menu.navbar.page.grid#navbar
+      a.brand.item LoanR App
+      a.active.item Home
+  div.background-image
+  div#content
+    h1.ui.header.center.white.aligned.icon
+      i.circular.money.white.icon#welcome-icon
+      span#welcome-text Welcome to LoanR
+    p#welcome-text lending and borrowing money has never been easier
+    div.column.center.aligned#login
+      div.ui.form.segment
+        div.field
+          label Email Address
+          div.ui.left.icon.input
+            input#login-email(type="text", placeholder="Email Address")
+            i.mail.icon
+        div.field
+          label Password
+          div.ui.left.icon.input
+            input#login-password(type="password", placeholder="Password")
+            i.lock.icon
+        div.ui.blue.submit.button#login-btn Login
+        div.ui.green.button#login-register-btn Register
+    
+    div.ui.negative.message#credential-warning
+      div.class.header The Email and Password is incorrect.
+       p Please try your credentials again.
+    
+    div.ui.modal.transition#registration-modal
+      div.header
+        i.add.user.icon 
+        span User Credentials
+      div.content
+        div.ui.form
+          
+          div.field
+            label Name
+            div.ui.left.icon.input
+              input#registration-first-name(type="text", placeholder="Your legal name")
+              i.user.icon
+          div.field 
+            label Bank Account Number
+            div.ui.left.icon.input
+              input#registration-account(type="text", placeholder="Your bank account number")
+              i.university.icon
+          div.field
+            label Email Address
+            div.ui.left.icon.input
+              input#registration-email(type="text", placeholder="example@example.com")
+              i.mail.icon
+          div.field
+            label Password
+            div.ui.left.icon.input
+              input#registration-password(type="password", placeholder="Enter a password")
+              i.lock.icon
+          div.field
+            label Confirm Password
+            div.ui.left.icon.input
+              input#registration-confirm-password(type="password", placeholder="Confirm your password")
+              i.lock.icon
+          div.two.fields
+            div.field
+              label Will you be a...
+              div.ui.buttons
+                div.ui.button#main-lender-btn Lender
+                div.or
+                div.ui.button#main-borrower-btn Borrower
+            div.field
+              div.ui.green.button.submit#registration-btn Register

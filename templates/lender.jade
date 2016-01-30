@@ -1,0 +1,205 @@
+extends layout
+
+block scripts
+  link(rel="stylesheet", href="/static/css/customer.css")
+  script(src="/static/js/lender.js")
+  title Lender Account
+
+block content
+
+  div.ui.inverted.fixed.menu.navbar.page.grid#navbar
+    a.brand.item(href="/") LoanR App
+    a.active.item Lender Account
+    div.right.menu
+      a.item(href="/logout") Logout
+  div.ui.menu.navbar.page.grid#dash-header
+    h4.ui.header.white.icon
+      i.circular.home.icon(style="display: inline-block;")
+      h1.header(style="display: inline-block;") LoanR Dashboard
+    h4.ui.header(style="display: inline-block; float: right; margin-right: 80px; margin-top: 15px;")
+      div.content(style="display: inline-block;") 
+        div.sub.header#customer-welcome Welcome to LoanR 
+        h1.header#customer-name(style="margin-top: -0px;") #{name}
+
+  div#content
+    div.ui.four.column.grid
+      div.column
+        div.ui.teal.fluid.card
+          div.content
+            h1.ui.header 
+              div.content 
+                span#dash-balance $#{balance}
+              i.circular.university.icon(style="display: inline; float: right;")
+            h2.header Bank Balance
+      div.twelve.wide.column
+        div.ui.three.column.grid
+          div.column  
+            div.ui.red.fluid.card
+              div.content
+                h1.ui.header
+                  div.content
+                    span#dash-loans
+                  i.copy.icon(style="display: inline; float: right;")
+                h2.header Active Loans
+          div.column
+            div.ui.blue.fluid.card
+              div.content
+                h1.ui.header 
+                  div.content 
+                    span#dash-money-lent
+                  i.money.icon(style="display: inline; float: right;")
+                h2.header Loaned Out
+          div.column
+            div.ui.purple.fluid.card
+              div.content
+                h1.ui.header
+                  div.content
+                    span#dash-credit #{rating}
+                  i.bar.chart.icon(style="display: inline; float: right;")
+                h2.header Credit Score
+
+        h4.ui.horizontal.right.floated.divider(style="margin-top: 20px; margin-bottom: 0px;") Lender Account 
+    div.ui.four.column.grid
+      div.column#side
+        div.ui.vertical.menu#sidemenu
+          a.active.teal.item#sidemenu-create(data-target="content-create") Create Loan Offer
+          a.green.item#sidemenu-open(data-target="content-open") Open Loan Offers
+          a.yellow.item#sidemenu-active(data-target="content-active") Active Loans
+          a.red.item#sidemenu-closed(data-target="content-closed") Closed Loans
+        div.ui.vertical.menu#sidemenu2
+          a.blue.item#sidemenu-all(data-target="content-all") View All Loan Wishes
+          a.orange.item#sidemenu-search(data-target="content-search") Search Loan Wishes
+      div.twelve.wide.column#content-box
+        div.ui.segment#content-create
+          div.ui.form#create-loan
+            h2.ui.header
+              i.money.icon 
+              div.content Create a Loan Offering
+                div.sub.header Offer your money to be loaned to someone who needs quick cash
+            div.ui.fitted.divider
+            div.field
+              label Total Loan Amount
+              div.ui.left.icon.input
+                input#create-loan-total(type="text", placeholder="Enter a loan amount")
+                i.dollar.icon
+            div.field
+              label Interest Rate
+              div.ui.left.icon.input
+                input#create-loan-interest(type="text", placeholder="Enter an interest rate")
+                i.world.icon
+            div.field
+              label Desired Monthly Payment
+              div.ui.left.icon.input
+                input#create-loan-monthly(type="text", placeholder="Enter a desired monthly payment")
+                i.dollar.icon
+            div.field
+              label Desired Borrower Credit Rating
+              div.ui.left.icon.input
+                input#create-loan-rating(type="text", placeholder="Enter a desired borrower credit score")
+                i.star.icon
+            div.field
+              div.ui.green.button.submit#create-loan-btn Submit Offering
+        div.ui.form.segment#content-open(style="margin-top: 0px;")
+          h2.ui.header
+            i.dollar.icon
+            div.content Open Loans Offers
+              div.sub.header Loan offers that are currently on the market from you
+          div.ui.fitted.divider
+          table.ui.celled.striped.table
+            thead
+              tr
+                th
+                  i.dollar.icon
+                  span Loan Amount
+                th
+                  i.money.icon
+                  span Monthly Payment
+                th
+                  i.calendar.icon
+                  span Loan Duration (Months)
+                th
+                  i.world.icon
+                  span Interest Rate
+                th
+                  i.remove.icon
+                  span Cancel
+            tbody#open-body
+              
+        div.ui.segment#content-active(style="margin-top: 0px;")
+          h2.ui.header
+            i.book.icon
+            div.content Active Loans
+              div.sub.header Loans that you are currently being paid off by the borrower
+          div.ui.fitted.divider
+          table.ui.celled.striped.table
+            thead
+              tr
+                th
+                  i.dollar.icon
+                  span Loan Amount
+                th
+                  i.money.icon
+                  span Remaining Payment
+                th
+                  i.calendar.icon
+                  span Months Left
+                th
+                  i.world.icon
+                  span Interest Rate
+                th
+                  i.bar.chart.icon
+                  span Next Due Date
+            tbody#contracted-body
+        div.ui.segment#content-closed(style="margin-top: 0px;")
+          h2.ui.header
+            i.history.icon
+            div.content Closed Loans
+              div.sub.header Loans that have already been paid off by the borrower
+          div.ui.fitted.divider
+          table.ui.celled.striped.table
+            thead
+              tr
+                th
+                  i.dollar.icon
+                  span Loan Amount
+                th
+                  i.world.icon
+                  span Interest Rate
+            tbody#closed-body
+        div.ui.segment#content-all(style="margin-top: 0px;")
+          h2.ui.header
+            i.search.icon
+            div.content All Loan Wishes
+              div.sub.header View all loan wishes from potential borrowers
+          div.ui.fitted.divider
+        div.ui.segment#content-search(style="margin-top: 0px;")
+          div.ui.form
+            h2.ui.header
+              i.search.icon
+              div.content Search for Loan Wishes
+                div.sub.header Search for loan wishes based on your criteria
+            div.ui.fitted.divider
+            div.field
+              label Total Loan Amount
+              div.ui.left.icon.input
+                input#search-wish-total(type="text", placeholder="Enter a loan amount")
+                i.dollar.icon
+            div.field
+              label Interest Rate
+              div.ui.left.icon.input
+                input#search-wish-interest(type="text", placeholder="Enter an interest rate")
+                i.world.icon
+            div.field
+              label Desired Monthly Payment
+              div.ui.left.icon.input
+                input#search-wish-monthly(type="text", placeholder="Enter a desired monthly payment")
+                i.money.icon
+            div.field
+              div.ui.blue.button.submit#search-wish-btn Search 
+        div.ui.segment#content-search-results(style="margin-top: 0px;")
+          h2.ui.header
+            i.search.icon
+            div.content Loan Wishes Search Results
+              div.sub.header Results that matched your loan wish criteria
+          div.ui.fitted.divider
+      
